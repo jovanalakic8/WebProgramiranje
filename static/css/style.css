@@ -1,26 +1,5 @@
 body {
-	padding : 0.5%;
-}
-
-#form_holder {
-	margin: 0 auto;
-	text-align : center;
-}
-
-body {
     margin : 0;
-}
-
-.meni{
-    width: auto;
-    float: left;
-    min-height:100vh;
-    background-color: #f1f1f1;
-}
-
-.prikaz{
-    padding : 5%;
-    float: left;
 }
 
 ul {
@@ -42,9 +21,9 @@ li input {
   width : 100%;
 }
 
-.odjava {
-    bottom : 0;
-    position : absolute;
+#form_holder {
+	margin: 0 auto;
+	text-align : center;
 }
 
 table {

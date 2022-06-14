@@ -1,0 +1,22 @@
+{
+  "korisnici": [
+    {
+      "userName": "q",
+      "password": "q",
+      "name": "Q",
+      "lastName": "Q",
+      "sex": "MUSKI",
+      "birthDate": "22-02-2002",
+      "role": "TRENER"
+    },
+    {
+      "userName": "a",
+      "password": "a",
+      "name": "a",
+      "lastName": "a",
+      "sex": "ZENSKI",
+      "birthDate": "11-01-2000",
+      "role": "KUPAC"
+    }
+  ]
+}

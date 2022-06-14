@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Registracija</title>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/script.js"></script>
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<input class="ml-2 mt-2 btn btn-primary" type="button" value="Nazad" onclick = "window.location.replace('/')">
+
+<form id="dodajKorisnika">
+	<header class="text-center mt-5 mb-5">
+		<h1>Registracija</h1>
+	</header>
+	
+	<table id="form_holder">
+		<tr>
+			<td>
+				<label for="exampleInputEmail1">Ime</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="ime" aria-describedby="emailHelp" placeholder="Ime" name="ime" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="exampleInputPassword1">Prezime</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="prezime" placeholder="Prezime" name="prezime" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="exampleInputEmail1">Korisnicko ime</label>
+			</td>
+			<td>
+				<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" name="korisnickoIme" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="exampleInputPassword1">Lozinka</label> 
+			</td>
+			<td>
+				<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Lozinka" name="lozinka" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="exampleInputEmail1">Datum rodjenja</label>
+			</td>
+			<td>
+				<input type="email" class="form-control" id="exampleInputDate" aria-describedby="emailHelp" placeholder="dan-mesec-godina" name="datumRodjenja" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="exampleInputPassword1">Pol</label>
+			</td>
+			<td>
+				<input type="radio" name="pol" value="ZENSKI" checked="checked"> zenski
+				<input type="radio" name="pol" value="MUSKI"> muski
+			</td>
+		</tr>
+		<tr id = "uloga">
+			<td>
+				<label for="exampleInputPassword1">Uloga</label>
+			</td>
+			<td>
+				<input type="radio" id = "radiom" name="uloga" value="MENADZER" checked="checked"> menadzer
+				<input type="radio" id = "radiod" name="uloga" value="KUPAC"> kupac
+				<input type="radio" id = "radiod" name="uloga" value="TRENER"> trener
+			</td>
+		</tr>
+		<tr>
+		 <td colspan="2" class="text-center" >
+			 <input id = "kupac" type="button" value="Dodaj" onclick="dodajKorisnika()" class="btn btn-primary">
+		 </td>
+		</tr>	
+	</table>
+	<fieldset id="log_war"></fieldset>
+	</form>
+</body>
+</html>
