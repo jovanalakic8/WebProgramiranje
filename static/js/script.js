@@ -23,7 +23,6 @@ function login() {
 		}, error: function(e){
 		    if(e.status == 400){
 		        alert(e.responseText);
-		        window.location.replace("/");
 		    }
 		}
 	});

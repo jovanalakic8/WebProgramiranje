@@ -17,6 +17,27 @@
       "sex": "ZENSKI",
       "birthDate": "11-01-2000",
       "role": "KUPAC"
+    },
+    {
+      "userName": "b",
+      "password": "b",
+      "name": "b",
+      "lastName": "b",
+      "sex": "MUSKI",
+      "birthDate": "11-01-2000",
+      "role": "KUPAC"
     }
+  ],
+  "sportskiObjekti": [
+	  {
+	  	"naziv": "Objekat1",
+		"tipObjekta": "teretana",
+		"sadrzaj": "sauna",
+		"status": "Radi",
+		"lokacija": "Radnicka 12 Novi Sad",
+		"logo": "",
+		"prosecnaOcena": 4.2,
+		"radnoVreme": "11-14"
+	  }
   ]
 }

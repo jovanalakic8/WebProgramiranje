@@ -20,7 +20,7 @@ public class UserController {
 	private static UserService userService = new UserService();
 	private static Gson g = new GsonBuilder().setPrettyPrinting().create();
 	
-	public static void login() {
+	public static void endpoints() {
 		post("/login", (req, res) -> {
 			res.type("application/json");
 
@@ -43,7 +43,7 @@ public class UserController {
 				return jsonObject.toString();
 			} catch (Exception e) {
 				res.status(400);
-				return "Losi kredencijali";
+				return "Neispravan unos podataka";
 			}
 
 		});
