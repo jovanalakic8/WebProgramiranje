@@ -34,10 +34,28 @@
 		"tipObjekta": "teretana",
 		"sadrzaj": "sauna",
 		"status": "Radi",
-		"lokacija": "Radnicka 12 Novi Sad",
-		"logo": "",
+		"lokacija": {
+			"geografskaSirina": 112,
+			"geografskaDuzina": 555,
+			"adresa": "Radnicka 12 Novi Sad"
+		},
+		"logo": "/images/avatar.png",
 		"prosecnaOcena": 4.2,
 		"radnoVreme": "11-14"
+	  },
+	  {
+	  	"naziv": "Test2",
+		"tipObjekta": "dvorana",
+		"sadrzaj": "kosarka",
+		"status": "Ne radi",
+		"lokacija": {
+			"geografskaSirina": 442,
+			"geografskaDuzina": 25,
+			"adresa": "Maricka, Beograd"
+		},
+		"logo": "/images/avatar.png",
+		"prosecnaOcena": 1.3,
+		"radnoVreme": "09-12"
 	  }
   ]
 }

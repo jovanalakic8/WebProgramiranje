@@ -5,7 +5,7 @@ public class SportskiObjekat {
 	private String tipObjekta;
 	private String sadrzaj;
 	private String status;
-	private String lokacija;
+	private Lokacija lokacija;
 	private String logo;
 	private float prosecnaOcena;
 	private String radnoVreme;
@@ -34,10 +34,10 @@ public class SportskiObjekat {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getLokacija() {
+	public Lokacija getLokacija() {
 		return lokacija;
 	}
-	public void setLokacija(String lokacija) {
+	public void setLokacija(Lokacija lokacija) {
 		this.lokacija = lokacija;
 	}
 	public String getLogo() {
