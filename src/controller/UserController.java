@@ -1,5 +1,6 @@
 package controller;
 
+import static spark.Spark.get;
 import static spark.Spark.post;
 
 import com.google.gson.Gson;
@@ -74,8 +75,35 @@ public class UserController {
 				res.status(400);
 				return e.getMessage();
 			}
-
-
+			
+		});
+		
+		post("/logout", (req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if (user != null) {
+				ss.invalidate();
+			}
+			
+			res.status(200);
+			return "";
+		});
+		
+		get("/isLoggedIn", (req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User k = ss.attribute("user");
+			JsonParser parser = new JsonParser();
+			if (k == null) {
+				String jsonString = "{'loggedIn': false}";
+				JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
+				return jsonObject.toString();
+			} else {
+				String jsonString = "{'loggedIn': true}";
+				JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
+				return jsonObject.toString();
+			}
 		});
 	}
 
