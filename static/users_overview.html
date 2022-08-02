@@ -8,7 +8,6 @@
     <script src="js/script.js"></script>
     
     <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-
     <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
     
     <script>
@@ -23,23 +22,98 @@
     <main>
     	<h1 class="text-center mt-3 mb-3" >Registrovani korisnici</h1>
     	
-    	<div class="input-group w-75 ml-auto mr-auto mb-3" hidden>
-		   <input id="pretraga" type="text" class="form-control" aria-label="Pretraga" onkeyup="pretraga()">
+    	<div class="input-group w-75 ml-auto mr-auto mb-3" >
+		   <input id="pretraga" type="text" class="form-control" aria-label="Pretraga" onkeyup="pretragaRegistrovanihKorisnika()">
 		   <div class="input-group-append">
-		      <select id="kriterijum" onchange="restartujPretragu()">
-		      	<option value="naziv">Naziv</option>
-		      	<option value="tip">Tip</option>
-		      	<option value="lokacija">Lokacija</option>
-		      	<option value="ocena">Ocena</option>
+		      <select id="kriterijum" onchange="pretragaRegistrovanihKorisnika()">
+		      	<option value="ime">Ime</option>
+		      	<option value="prezime">Prezime</option>
+		      	<option value="korisnicko-ime">Korisnicko ime</option>
 		      </select>
 		   </div>
 		 </div>
+		 
+		 <div class="d-flex">
+		 	
+		 	<div class="filteri" style="flex:1;">
+		 		<h3 class="ml-3 mt-4">Filteri</h3>
+		 
+				 <div class="d-flex my-5">
+				 	<div class="ulolga-filter mx-5">
+				 		<h5>Uloga</h5>
+				 		
+				 		<div>
+				 			<input type="radio" name="uloga" value="" checked onclick="pretragaRegistrovanihKorisnika()" />
+				 			<span>-</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="uloga" value="ADMIN" onclick="pretragaRegistrovanihKorisnika()" />
+				 			<span>admin</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="uloga" value="MENADZER" onclick="pretragaRegistrovanihKorisnika()" />
+				 			<span>menadzer</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="uloga" value="KUPAC" onclick="pretragaRegistrovanihKorisnika()" />
+				 			<span>kupac</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="uloga" value="TRENER" onclick="pretragaRegistrovanihKorisnika()" />
+				 			<span>trener</span>
+				 		</div>
+				 	</div>
+				 	
+				 	<div class="tip-korisnika-filter">
+				 		<h5>Tip korisnika</h5>
+				 		
+				 		<div>
+				 			<input type="radio" name="tip-korisnika" value="" checked />
+				 			<span>-</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="tip-korisnika" value="ZLATNI" />
+				 			<span>zlatni</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="tip-korisnika" value="SREBRNI" />
+				 			<span>srebrni</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="tip-korisnika" value="BRONZANI" />
+				 			<span>bronzani</span>
+				 		</div>
+				 	</div>
+				 </div>
+		 	</div>
+		 	
+		 	<div class="sortirnaje" style="flex:1;">
+		 		<h3 class="ml-3 mt-4">Sortiranje</h3>
+		 		
+		 		<div class="mb-2">
+			 		<select id="tip-sortiranja" onchange="pretragaRegistrovanihKorisnika()">
+			 			<option value=""></option>
+			 			<option value="ime">ime</option>
+			 			<option value="prezime">prezime</option>
+			 			<option value="korisnicko-ime">korisnicko ime</option>
+			 			<option value="broj-bodova">broj bodova</option>
+			 		</select>
+		 		</div>
+		 		
+		 		<div>
+		 			<label>Rastuce <input id="rastuce-sortiranje" type="checkbox" onclick="pretragaRegistrovanihKorisnika()" checked /></label>
+		 		</div>
+		 	</div>
+		 	
+		 </div>
+		 
     	
-    	<table class="w-75 ml-auto mr-auto">
+    	<table id="users-table" class="w-75 ml-auto mr-auto">
     		<thead>
     			<tr>
                     <th>Ime</th>
                     <th>Prezime</th>
+                    <th>Korisnicko ime</th>
                     <th>Uloga</th>
                     <th>Datum rodjenja</th>
                     <th>Pol</th>

@@ -159,6 +159,7 @@ function azurirajProfil() {
     });
 }
 
+var registrovaniKorisnici;
 function prikaziSveKorisnike() {
 	$.ajax({
         url: "/users",
@@ -166,12 +167,13 @@ function prikaziSveKorisnike() {
         contentType: "application/json",
         dataType: "json",
         complete: function(data) {
-            const registrovaniKorisnici = data.responseJSON;
+            registrovaniKorisnici = data.responseJSON;
             let tableBody = $("#table-body");
             tableBody.html("");
             for (let k of registrovaniKorisnici) {
                 tableBody.append(kreirajRedZaKorisnika(k));
             }
+ 
         }
     });
 }
@@ -180,11 +182,146 @@ function kreirajRedZaKorisnika(korisnik) {
 	let row = "<tr>";
 	row += "<td>" + korisnik.name + "</td>";
 	row += "<td>" + korisnik.lastName + "</td>";
+	row += "<td>" + korisnik.userName + "</td>";
 	row += "<td>" + korisnik.role.toLowerCase() + "</td>";
 	row += "<td>" + korisnik.birthDate + "</td>";
 	row += "<td>" + korisnik.sex.toLowerCase() + "</td>";
 	
 	return row;
+}
+
+function pretragaRegistrovanihKorisnika() {
+	let kriterijum = $("#kriterijum").val();
+	let tekst = $("#pretraga").val();
+	
+	let filtriraniKorisnici = [];
+	if (kriterijum === "ime") {
+		for (let k of registrovaniKorisnici) {
+			if (k.name.toLowerCase().includes(tekst.toLowerCase())) {
+				filtriraniKorisnici.push(k);
+			}
+		}
+	} else if (kriterijum === "prezime") {
+		for (let k of registrovaniKorisnici) {
+			if (k.lastName.toLowerCase().includes(tekst.toLowerCase())) {
+				filtriraniKorisnici.push(k);
+			}
+		}
+	} else if (kriterijum === "korisnicko-ime") {
+		for (let k of registrovaniKorisnici) {
+			if (k.userName.toLowerCase().includes(tekst.toLowerCase())) {
+				filtriraniKorisnici.push(k);
+			}
+		}
+	}
+	
+	const ulogaKorisnika = $('input[name="uloga"]:checked').val();
+	
+	if (ulogaKorisnika) {
+		let filtriraniKorisniciUloga = [];
+		for (let k of filtriraniKorisnici) {
+			if (k.role === ulogaKorisnika) {
+			    filtriraniKorisniciUloga.push(k);			
+			}
+		}
+		
+		filtriraniKorisnici = filtriraniKorisniciUloga;
+	}
+	
+	const rastuceSortiranje = $("#rastuce-sortiranje").is(":checked");
+	const sortiranjePo = $("#tip-sortiranja").val();
+	if (sortiranjePo === "ime") {
+		if (rastuceSortiranje) {
+			filtriraniKorisnici.sort(function(a, b) {
+				const nameA = a.name.toUpperCase();
+				const nameB = b.name.toUpperCase();
+				if (nameA < nameB) {
+				  return -1;
+				}
+				if (nameA > nameB) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		} else {
+			filtriraniKorisnici.sort(function(a, b) {
+				const nameA = a.name.toUpperCase();
+				const nameB = b.name.toUpperCase();
+				if (nameA < nameB) {
+				  return 1;
+				}
+				if (nameA > nameB) {
+				  return -1;
+				}
+				
+				return 0;
+			});
+		}
+	} else if (sortiranjePo === "prezime") {
+		if (rastuceSortiranje) {
+			filtriraniKorisnici.sort(function(a, b) {
+				const nameA = a.lastName.toUpperCase();
+				const nameB = b.lastName.toUpperCase();
+				if (nameA < nameB) {
+				  return -1;
+				}
+				if (nameA > nameB) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		} else {
+			filtriraniKorisnici.sort(function(a, b) {
+				const nameA = a.lastName.toUpperCase();
+				const nameB = b.lastName.toUpperCase();
+				if (nameA < nameB) {
+				  return 1;
+				}
+				if (nameA > nameB) {
+				  return -1;
+				}
+				
+				return 0;
+			});
+		}
+	} else if (sortiranjePo === "korisnicko-ime") {
+		if (rastuceSortiranje) {
+			filtriraniKorisnici.sort(function(a, b) {
+				const nameA = a.userName.toUpperCase();
+				const nameB = b.userName.toUpperCase();
+				if (nameA < nameB) {
+				  return -1;
+				}
+				if (nameA > nameB) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		} else {
+			filtriraniKorisnici.sort(function(a, b) {
+				const nameA = a.userName.toUpperCase();
+				const nameB = b.userName.toUpperCase();
+				if (nameA < nameB) {
+				  return 1;
+				}
+				if (nameA > nameB) {
+				  return -1;
+				}
+				
+				return 0;
+			});
+		}
+	}
+	
+	let tableBody = $("#table-body");
+	tableBody.html("");
+	for (let k of filtriraniKorisnici) {
+	    tableBody.append(kreirajRedZaKorisnika(k));
+	}
+	
 }
 
 var sportskiObjekti = [];

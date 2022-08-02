@@ -3,6 +3,7 @@ package dto;
 public class UserWithoutCredentialsDTO {
 	private String name;
 	private String lastName;
+	private String userName;
 	private String sex;
 	private String birthDate;
 	private String role;
@@ -11,10 +12,11 @@ public class UserWithoutCredentialsDTO {
 		super();
 	}
 	
-	public UserWithoutCredentialsDTO(String name, String lastName, String sex, String birthDate, String role) {
+	public UserWithoutCredentialsDTO(String name, String lastName, String userName, String sex, String birthDate, String role) {
 		super();
 		this.name = name;
 		this.lastName = lastName;
+		this.userName = userName;
 		this.sex = sex;
 		this.birthDate = birthDate;
 		this.role = role;
@@ -58,6 +60,14 @@ public class UserWithoutCredentialsDTO {
 	
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

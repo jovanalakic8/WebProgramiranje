@@ -11,10 +11,10 @@ import dto.UserWithoutCredentialsDTO;
 public class UserService {
 	
 	public List<UserWithoutCredentialsDTO> sviKorisnici() {
-		List<UserWithoutCredentialsDTO> dtos = new ArrayList();
+		List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
 		for (User user : DataManager.data.getKorisnici()) {
 			dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
-					 user.getSex(), user.getBirthDate(), user.getRole()));
+					 user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole()));
 		}
 		
 		return dtos;
