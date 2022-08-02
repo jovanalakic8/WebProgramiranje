@@ -1,12 +1,24 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import beans.User;
 import data.DataManager;
 import dto.RegistracijaDTO;
+import dto.UserWithoutCredentialsDTO;
 
 public class UserService {
+	
+	public List<UserWithoutCredentialsDTO> sviKorisnici() {
+		List<UserWithoutCredentialsDTO> dtos = new ArrayList();
+		for (User user : DataManager.data.getKorisnici()) {
+			dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
+					 user.getSex(), user.getBirthDate(), user.getRole()));
+		}
+		
+		return dtos;
+	}
 	
 	public User login(String korisnickoIme, String lozinka) throws Exception {
 		List<User> korisnici = (List<User>) DataManager.data.getKorisnici();

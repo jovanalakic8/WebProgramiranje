@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pregled korisnika</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    
+    <script>
+		$(document).ready( function() {
+			prikaziSveKorisnike();
+		});
+	</script>
+    
+</head>
+<body>
+    
+    <main>
+    	<h1 class="text-center mt-3 mb-3" >Registrovani korisnici</h1>
+    	
+    	<div class="input-group w-75 ml-auto mr-auto mb-3" hidden>
+		   <input id="pretraga" type="text" class="form-control" aria-label="Pretraga" onkeyup="pretraga()">
+		   <div class="input-group-append">
+		      <select id="kriterijum" onchange="restartujPretragu()">
+		      	<option value="naziv">Naziv</option>
+		      	<option value="tip">Tip</option>
+		      	<option value="lokacija">Lokacija</option>
+		      	<option value="ocena">Ocena</option>
+		      </select>
+		   </div>
+		 </div>
+    	
+    	<table class="w-75 ml-auto mr-auto">
+    		<thead>
+    			<tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Uloga</th>
+                    <th>Datum rodjenja</th>
+                    <th>Pol</th>
+                </tr>
+    		</thead>
+    		<tbody id="table-body">
+    		
+    		</tbody>
+    	</table>
+    </main>
+</body>
+</html>

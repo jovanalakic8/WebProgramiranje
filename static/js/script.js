@@ -101,7 +101,7 @@ function dodajKorisnika(){
     });
 }
 
-function getUserProfileData() {
+function prikaziProfil() {
 	$.ajax({
         url: "/my-profile",
         type: "GET",
@@ -138,7 +138,7 @@ function getUserProfileData() {
     });
 }
 
-function updateProfile() {
+function azurirajProfil() {
 	var data = getFormData($("#profile-data"));
     var json = JSON.stringify(data);
         
@@ -151,13 +151,40 @@ function updateProfile() {
         complete : function (data) {
             if(data.status == 400)
                 alert(data.responseText);
-            else
-                {
-                    alert("Uspesno ste ste azurirali podatke");
-                    window.location.reload();
-                }
+            else {
+                alert("Uspesno ste ste azurirali podatke");
+                window.location.reload();
+            }
         }
     });
+}
+
+function prikaziSveKorisnike() {
+	$.ajax({
+        url: "/users",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+            const registrovaniKorisnici = data.responseJSON;
+            let tableBody = $("#table-body");
+            tableBody.html("");
+            for (let k of registrovaniKorisnici) {
+                tableBody.append(kreirajRedZaKorisnika(k));
+            }
+        }
+    });
+}
+
+function kreirajRedZaKorisnika(korisnik) {
+	let row = "<tr>";
+	row += "<td>" + korisnik.name + "</td>";
+	row += "<td>" + korisnik.lastName + "</td>";
+	row += "<td>" + korisnik.role.toLowerCase() + "</td>";
+	row += "<td>" + korisnik.birthDate + "</td>";
+	row += "<td>" + korisnik.sex.toLowerCase() + "</td>";
+	
+	return row;
 }
 
 var sportskiObjekti = [];

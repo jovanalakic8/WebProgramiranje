@@ -149,6 +149,30 @@ public class UserController {
 				return e.getMessage();
 			}
 		});
+		
+		get("/users", (req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User k = ss.attribute("user");
+			
+			JsonParser parser = new JsonParser();
+			if (k == null) {
+				String jsonString = "{'error': 'not logged in'}";
+				JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
+				res.status(403);
+				return jsonObject.toString();
+			} else {
+				if (!k.getRole().equals("ADMIN")) {
+					String jsonString = "{'error': 'only admins can access this page'}";
+					JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
+					res.status(401);
+					return jsonObject.toString();
+				}
+				
+				String json = g.toJson(userService.sviKorisnici(), List.class);
+				return json;
+			}
+		});
 	}
 
 }
