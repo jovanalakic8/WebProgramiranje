@@ -37,4 +37,20 @@ public class UserService {
         
 	    return input;
     }
+	
+	public RegistracijaDTO azuriranjeKorisnika(String korisnickoIme, RegistracijaDTO input) {
+		List<User> korisnici = (List<User>) DataManager.data.getKorisnici();
+	    for (User korisnik : korisnici) {
+	    	if (korisnik.getUserName().equals(korisnickoIme)) {
+	    		korisnik.setName(input.getIme());
+	    		korisnik.setLastName(input.getPrezime());
+	    		korisnik.setBirthDate(input.getDatumRodjenja());
+	    		korisnik.setSex(input.getPol());
+	    	}
+        }
+	    
+        DataManager.saveData();
+        
+	    return input;
+	}
 }

@@ -101,6 +101,65 @@ function dodajKorisnika(){
     });
 }
 
+function getUserProfileData() {
+	$.ajax({
+        url: "/my-profile",
+        type: "GET",
+        data: {},
+        contentType: "application/json",
+        dataType: "json",
+        complete : function (data) {
+            if(data.status == 403) {
+                alert("Samo registrovani korisnici mogu da koriste ovu stranicu");
+                window.location.replace("/");
+            }
+            else {
+				$("#save-button").attr("disabled", false);
+				$("#ime").val(data.responseJSON.name);
+				$("#prezime").val(data.responseJSON.lastName);
+				$("#korisnickoIme").val(data.responseJSON.userName);
+				$("#datumRodjenja").val(data.responseJSON.birthDate);
+				
+				if (data.responseJSON.sex === "ZENSKI") {
+					$("#radio_sex_w").prop("checked", true);
+				} else {
+					$("#radio_sex_m").prop("checked", true);
+				}
+				
+				if (data.responseJSON.role === "KUPAC") {
+					$("#radio_role_c").prop("checked", true);
+				} else if (data.responseJSON.role === "MENADZER") {
+					$("#radio_role_m").prop("checked", true);
+				} else {
+					$("#radio_role_t").prop("checked", true);
+				}
+			}    
+        }
+    });
+}
+
+function updateProfile() {
+	var data = getFormData($("#profile-data"));
+    var json = JSON.stringify(data);
+        
+    $.ajax({
+        url: "/my-profile",
+        type: "POST",
+        data: json,
+        contentType: "application/json",
+        dataType: "json",
+        complete : function (data) {
+            if(data.status == 400)
+                alert(data.responseText);
+            else
+                {
+                    alert("Uspesno ste ste azurirali podatke");
+                    window.location.reload();
+                }
+        }
+    });
+}
+
 var sportskiObjekti = [];
 function ucitajSportskeObjekte() {
 	$.ajax({

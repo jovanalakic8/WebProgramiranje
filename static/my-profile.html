@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Moj profil</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+	<link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+	
+	<script>
+		$(document).ready( function() {
+			getUserProfileData();
+		});
+	</script>
+		
+</head>
+<body>
+
+<input class="ml-2 mt-2 btn btn-primary" type="button" value="Nazad" onclick = "window.location.replace('/')">
+
+<form id="profile-data">
+	<header class="mt-5 mb-5">
+		<h1 class="ml-3">Pregled profila</h1>
+	</header>
+	
+	<table class="ml-3">
+		<tr>
+			<td>
+				<label for="exampleInputEmail1">Ime</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="ime" aria-describedby="emailHelp" placeholder="Ime" name="ime" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="exampleInputPassword1">Prezime</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="prezime" placeholder="Prezime" name="prezime" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="korisnickoIme">Korisnicko ime</label>
+			</td>
+			<td>
+				<input type="email" class="form-control" id="korisnickoIme" aria-describedby="emailHelp" placeholder="Email" name="korisnickoIme" disabled>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="exampleInputPassword1">Lozinka</label> 
+			</td>
+			<td>
+				<input type="password" class="form-control" id="lozinka" placeholder="******************" name="lozinka" disabled>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="datumRodjenja">Datum rodjenja</label>
+			</td>
+			<td>
+				<input type="text" class="form-control" id="datumRodjenja" aria-describedby="emailHelp" placeholder="dan-mesec-godina" name="datumRodjenja" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="exampleInputPassword1">Pol</label>
+			</td>
+			<td>
+				<input id="radio_sex_w" type="radio" name="pol" value="ZENSKI" checked="checked"> zenski
+				<input id="radio_sex_m" type="radio" name="pol" value="MUSKI"> muski
+			</td>
+		</tr>
+		<tr id = "uloga">
+			<td>
+				<label for="exampleInputPassword1">Uloga</label>
+			</td>
+			<td>
+				<input id="radio_role_m" type="radio" name="uloga" value="MENADZER" disabled> menadzer
+				<input id="radio_role_c" type="radio" name="uloga" value="KUPAC" disabled> kupac
+				<input id="radio_role_t" type="radio" name="uloga" value="TRENER" disabled> trener
+			</td>
+		</tr>
+		<tr>
+		 <td colspan="2" class="text-right" >
+			 <input id = "save-button" type="button" value="Sacuvaj izmene" onclick="updateProfile()" class="btn btn-primary" disabled>
+		 </td>
+		</tr>	
+	</table>
+	<fieldset id="log_war"></fieldset>
+	</form>
+</body>
+</html>

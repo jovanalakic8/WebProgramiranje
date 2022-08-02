@@ -54,7 +54,7 @@ public class User {
 	public String getSex() {
 		return sex;
 	}
-	public void setSex(boolean male) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 	public String getBirthDate() {

@@ -3,6 +3,8 @@ package controller;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
+import java.util.List;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -103,6 +105,48 @@ public class UserController {
 				String jsonString = "{'loggedIn': true}";
 				JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
 				return jsonObject.toString();
+			}
+		});
+		
+		get("/my-profile", (req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User k = ss.attribute("user");
+			JsonParser parser = new JsonParser();
+			if (k == null) {
+				String jsonString = "{'loggedIn': false}";
+				JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
+				res.status(403);
+				return jsonObject.toString();
+			} else {
+				String json = g.toJson(k, User.class);
+				return json;
+			}
+		});
+		
+		post("/my-profile", (req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Niste ulogovani";
+			}
+
+			try {
+				RegistracijaDTO k = g.fromJson(req.body(), RegistracijaDTO.class);
+				if (k.getIme().isEmpty() || k.getPrezime().isEmpty() || k.getDatumRodjenja().isEmpty()) {
+					res.status(400);
+					return "Popunite sva polja";
+				}
+				
+				RegistracijaDTO azuriran = userService.azuriranjeKorisnika(trenutniKorisnik.getUserName(), k);
+				res.status(200);
+				return g.toJson(azuriran);
+
+			} catch (Exception e) {
+				res.status(400);
+				return e.getMessage();
 			}
 		});
 	}
