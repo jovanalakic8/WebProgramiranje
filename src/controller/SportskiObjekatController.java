@@ -40,6 +40,23 @@ public class SportskiObjekatController {
 			return json;
 		});
 		
+		get("/sportski-objekti/:id", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			String objekatId = req.params("id");
+			
+			SportskiObjekat sportskiObjekat = service.getSportskiObjekatPoId(objekatId);
+			if (sportskiObjekat == null) {
+				res.type("application/json");
+				res.status(404);
+				return "Objekat nije pronadjen";
+			} else {
+				String json = g.toJson(sportskiObjekat, SportskiObjekat.class);
+				return json;
+			}
+		});
+		
 		post("/sportski-objekti", (req, res) -> {
 			req.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
 			String naziv = req.queryParams("naziv");

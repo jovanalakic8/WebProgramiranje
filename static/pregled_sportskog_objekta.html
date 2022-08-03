@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pregled sportskog objekta</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script>
+    $(document).ready( function() {
+		preuzimanjePodatakaZaSportskiObjekat();
+	});
+	</script>
+</head>
+<body>
+	<input type="button" value="Nazad" onclick = "window.location.replace('/')" class="btn btn-primary ml-2 mt-2">
+	
+	<h1 class="text-center mb-5">Pregled sportskog objekta</h1>
+	
+	<form id="restoranPodaci">
+	    <table id="form_holder">
+	        <tr>
+	            <td><label for="naziv">Naziv</label></td>
+	            <td><input type="text" class="form-control" id="naziv" name="naziv"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "tip">Tip</label></td>
+	            <td><input type="text" class = "form-control" id="tip" name="tip"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "status">Status</label></td>
+	            <td><input type="text" class = "form-control" id="status" name="status"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "lokacija">Lokacija</label></td>
+	            <td><input type="text" class = "form-control" id="lokacija" name="lokacija"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "logo">Logo</label></td>
+	            <td><img src = "" id="logo" name="logo" height="100" width="100"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "ocena">Prosecna ocena</label></td>
+	            <td><input type="text" class = "form-control" id="ocena" name="ocena"></td>
+	        </tr>
+	        <tr id = "raspored-treninga">
+	            <td><label for = "tabela-raspored-treninga">Raspored treninga</label></td>
+	            <td>
+	                <table id="tabela-raspored-treninga">
+	                    <thead id = "tabela_header">
+	                    </thead>
+	                </table>
+	            </td>
+	        </tr>
+	    </table>
+	</form>
+	<input id = "brisi" type="button" value="Brisi" onclick="obrisiSportskiObjekat()" class="btn btn-primary">
+</body>
+</html>

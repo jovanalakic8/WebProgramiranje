@@ -1,12 +1,20 @@
 function getFormData($form) {
-	var unindexedArray = $form.serializeArray();
-	var indexedArray = {};
+	let unindexedArray = $form.serializeArray();
+	let indexedArray = {};
 	
 	$.map(unindexedArray, function(n, i){
 		indexedArray[n['name']] = n['value'];
     });
 
     return indexedArray;
+}
+
+function getUrlVars() {
+    let vars = {};
+    let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
 }
 
 function getMultipartFormData($form) {
@@ -380,6 +388,7 @@ function kreirajRedZaSportskiObjekat(sportskiObjekat) {
 	row += "<td><img width=50 height=50 src='" + sportskiObjekat.logo + "'</td>";
 	row += "<td>" + sportskiObjekat.prosecnaOcena + "</td>";
 	row += "<td>" + sportskiObjekat.radnoVreme + "</td>";
+	row += "<td><a href='/pregled_sportskog_objekta.html?objekatId=" + sportskiObjekat.id + "' class='btn btn-primary'>" + "Detalji" + "</a></td>";
 	row += "</tr>";
 	return row;
 }
@@ -576,4 +585,24 @@ function sacuvajNoviObjekat() {
             }
         }
     });
+}
+
+function preuzimanjePodatakaZaSportskiObjekat() {
+	const objekatId = getUrlVars().objekatId;
+	$.ajax({
+        url: "/sportski-objekti/" + objekatId,
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+            const sportskiObjekat = data.responseJSON;
+ 			$("#naziv").val(sportskiObjekat.naziv);
+ 			$("#tip").val(sportskiObjekat.tipObjekta);
+ 			$("#status").val(sportskiObjekat.status);
+ 			$("#lokacija").val(sportskiObjekat.lokacija.adresa);
+ 			$("#logo").attr("src", sportskiObjekat.logo);
+ 			$("#ocena").val(sportskiObjekat.prosecnaOcena);
+        }
+    });
+	
 }
