@@ -1,6 +1,8 @@
 package beans;
 
 public class SportskiObjekat {
+	
+	private String id;
 	private String naziv;
 	private String tipObjekta;
 	private String sadrzaj;
@@ -10,6 +12,12 @@ public class SportskiObjekat {
 	private float prosecnaOcena;
 	private String radnoVreme;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getNaziv() {
 		return naziv;
 	}

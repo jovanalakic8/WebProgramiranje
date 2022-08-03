@@ -20,6 +20,18 @@ public class UserService {
 		return dtos;
 	}
 	
+	public List<UserWithoutCredentialsDTO> menadzeriBezObjekta() {
+		List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
+		for (User user : DataManager.data.getKorisnici()) {
+			if (user.getRole().toLowerCase().equals("menadzer") && user.getManagedSportObjectId() == null) {
+				dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
+						 user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole()));
+			}
+		}
+		
+		return dtos;
+	}
+	
 	public User login(String korisnickoIme, String lozinka) throws Exception {
 		List<User> korisnici = (List<User>) DataManager.data.getKorisnici();
 		for (User korisnik : korisnici) {

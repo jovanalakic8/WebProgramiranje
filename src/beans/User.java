@@ -11,6 +11,7 @@ public class User {
 	private String sex;
 	private String birthDate;
 	private String role;
+	private String managedSportObjectId;
 	
 	private User() {
 		
@@ -25,6 +26,7 @@ public class User {
 		this.sex = sex;
 		this.birthDate = birthDate;
 		this.role = role;
+		this.managedSportObjectId = null;
 	}
 	
 	public String getUserName() {
@@ -68,6 +70,14 @@ public class User {
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getManagedSportObjectId() {
+		return managedSportObjectId;
+	}
+
+	public void setManagedSportObject(String managedSportObjectId) {
+		this.managedSportObjectId = managedSportObjectId;
 	}
 	
 }

@@ -2,32 +2,32 @@ package beans;
 
 public class Lokacija {
 	
-	private int geografskaSirina;
-	private int geografskaDuzina;
+	private double geografskaSirina;
+	private double geografskaDuzina;
 	private String adresa;
 	
 	public Lokacija( ) {}
 	
-	public Lokacija(int geografskaSirina, int geografskaDuzina, String adresa) {
+	public Lokacija(double geografskaSirina, double geografskaDuzina, String adresa) {
 		super();
 		this.geografskaSirina = geografskaSirina;
 		this.geografskaDuzina = geografskaDuzina;
 		this.adresa = adresa;
 	}
 
-	public int getGeografskaSirina() {
+	public double getGeografskaSirina() {
 		return geografskaSirina;
 	}
 
-	public void setGeografskaSirina(int geografskaSirina) {
+	public void setGeografskaSirina(double geografskaSirina) {
 		this.geografskaSirina = geografskaSirina;
 	}
 
-	public int getGeografskaDuzina() {
+	public double getGeografskaDuzina() {
 		return geografskaDuzina;
 	}
 
-	public void setGeografskaDuzina(int geografskaDuzina) {
+	public void setGeografskaDuzina(double geografskaDuzina) {
 		this.geografskaDuzina = geografskaDuzina;
 	}
 

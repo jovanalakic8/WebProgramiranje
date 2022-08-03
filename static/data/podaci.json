@@ -10,6 +10,15 @@
       "role": "TRENER"
     },
     {
+      "userName": "z",
+      "password": "z",
+      "name": "Z",
+      "lastName": "Z",
+      "sex": "MUSKI",
+      "birthDate": "22-02-2002",
+      "role": "MENADZER"
+    },
+    {
       "userName": "a",
       "password": "a",
       "name": "a",
@@ -30,13 +39,14 @@
   ],
   "sportskiObjekti": [
     {
+      "id": "123-123",
       "naziv": "Objekat1",
       "tipObjekta": "teretana",
       "sadrzaj": "sauna",
       "status": "Radi",
       "lokacija": {
-        "geografskaSirina": 112,
-        "geografskaDuzina": 555,
+        "geografskaSirina": 112.0,
+        "geografskaDuzina": 555.0,
         "adresa": "Radnicka 12 Novi Sad"
       },
       "logo": "/images/avatar.png",
@@ -44,13 +54,14 @@
       "radnoVreme": "11-14"
     },
     {
+      "id": "54645",
       "naziv": "Test2",
       "tipObjekta": "dvorana",
       "sadrzaj": "kosarka",
       "status": "Ne radi",
       "lokacija": {
-        "geografskaSirina": 442,
-        "geografskaDuzina": 25,
+        "geografskaSirina": 442.0,
+        "geografskaDuzina": 25.0,
         "adresa": "Maricka, Beograd"
       },
       "logo": "/images/avatar.png",

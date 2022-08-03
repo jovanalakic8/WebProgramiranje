@@ -9,6 +9,17 @@ function getFormData($form) {
     return indexedArray;
 }
 
+function getMultipartFormData($form) {
+	var unindexedArray = $form.serializeArray();
+	let formData = new FormData();
+	
+	$.map(unindexedArray, function(n, i){
+		formData.append(n['name'], n['value']);
+    });
+
+    return formData;
+}
+
 function login() {
 	var data = getFormData($("#login")); 
 	var s = JSON.stringify(data); 
@@ -324,6 +335,23 @@ function pretragaRegistrovanihKorisnika() {
 	
 }
 
+function pronadjiMenadzereBezObekta() {
+	$.ajax({
+        url: "/users/without-object",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+            menadzeriBezObjekta = data.responseJSON;
+            let select = $("#select-menadzeri");
+            for (let men of menadzeriBezObjekta) {
+                select.append("<option value='" + men.userName + "' >" + men.name + " " + men.lastName + "</option>");
+            }
+ 
+        }
+    });
+}
+
 var sportskiObjekti = [];
 function ucitajSportskeObjekte() {
 	$.ajax({
@@ -411,4 +439,32 @@ function restartujPretragu() {
 	for (let so of sportskiObjekti) {
 	    tableBody.append(kreirajRedZaSportskiObjekat(so));
 	}
+}
+
+function sacuvajNoviObjekat() {
+	if ($("#logo")[0].files.length === 0) {
+		alert("Logo mora da bude izabran");
+		return;
+	}
+	
+    let formData = new FormData($("#dodavanje-novog-objekta")[0]);
+        
+    $.ajax({
+        url: "/sportski-objekti",
+        type: "POST",
+        data: formData,
+        enctype: "multipart/form-data",
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        complete : function (data) {
+            if(data.status == 400)
+                alert(data.responseText);
+            else {
+                alert("Objekat je uspesno sacuvan");
+                window.location.reload();
+            }
+        }
+    });
 }

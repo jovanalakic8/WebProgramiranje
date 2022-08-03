@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Novi objekat</title>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/script.js"></script>
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+		
+		<script>
+			$(document).ready( function() {
+				pronadjiMenadzereBezObekta();
+			});
+		</script>
+</head>
+<body>
+
+<input class="ml-2 mt-2 btn btn-primary" type="button" value="Nazad" onclick = "window.location.replace('/')">
+
+<form id="dodavanje-novog-objekta">
+	<header class="text-center mt-5 mb-5">
+		<h1>Unos novog sportskog objekta</h1>
+	</header>
+	
+	<table id="form_holder">
+		<tr>
+			<td>
+				<label for="exampleInputEmail1">Naziv</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="naziv" placeholder="SC Novi Sad" name="naziv" required>
+			</td>
+		</tr>
+		<tr id = "tip">
+			<td>
+				<label>Tip</label>
+			</td>
+			<td>
+				<input type="radio" id = "radio_tip_teretana" name="tip" value="TERETANA" checked="checked"> teretana
+				<input type="radio" id = "radio_tip_bazen" name="tip" value="BAZEN"> bazen
+				<input type="radio" id = "radio_tip_sportski_centar" name="tip" value="SPORTSKI_CENTAR"> sportski centar
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="gSirina">Geografska sirina</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="gSirina" placeholder="60.2292" name="gSirina" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="gDuzina">Geografska duzina</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="gDuzina" placeholder="60.2292" name="gDuzina" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="ulica">Ulica</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="ulica" placeholder="Radnicka" name="ulica" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="broj">Broj</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="broj" placeholder="23" name="broj" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="mesto">Mesto/grad</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="mesto" placeholder="Novi Sad" name="mesto" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="zip">Postanski broj</label> 
+			</td>
+			<td>
+				<input type="number" class="form-control" id="zip" placeholder="21000" name="zip" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="menadzer">Menadzer</label> 
+			</td>
+			<td>
+				<select id="select-menadzeri" name="menadzer" class="form-control" required>
+					<option></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="logo">Logo</label> 
+			</td>
+			<td>
+				<input type="file" class="form-control" id="logo" accept="image/png, image/gif, image/jpeg" name="logo" required>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="text-center" >
+				<input id = "kupac" type="button" value="Dodaj" onclick="sacuvajNoviObjekat()" class="btn btn-primary">
+			</td>
+		</tr>	
+	</table>
+	<fieldset id="log_war"></fieldset>
+	</form>
+</body>
+</html>
