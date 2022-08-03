@@ -34,7 +34,9 @@ public class SportskiObjekatController {
 			res.type("application/json");
 			res.status(200);
 			
-			String json = g.toJson(service.getSviSportskiObjekti(), List.class);
+			List<SportskiObjekat> sportskiObjekti = service.getSviSportskiObjekti();
+			sportskiObjekti.sort(SportskiObjekat.SportskiObjekatOtvorenostComparator);
+			String json = g.toJson(sportskiObjekti, List.class);
 			return json;
 		});
 		

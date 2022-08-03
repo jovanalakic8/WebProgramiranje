@@ -426,6 +426,115 @@ function pretraga() {
 		}
 	}
 	
+	const tipObekta = $('input[name="tip"]:checked').val();
+	if (tipObekta) {
+		let filtriraniSportskiObjektiTip = [];
+		for (let so of filtriraniSportskiObjekti) {
+			if (so.tipObjekta.toLowerCase() === tipObekta) {
+			    filtriraniSportskiObjektiTip.push(so);			
+			}
+		}
+		
+		filtriraniSportskiObjekti = filtriraniSportskiObjektiTip;
+	}
+	
+	const samoOtvoreniObjekti = $('#input-otvorenost').is(':checked');
+	if (samoOtvoreniObjekti) {
+		let filtriraniSportskiObjektiOtvorenost = [];
+		for (let so of filtriraniSportskiObjekti) {
+			if (so.status.toLowerCase() === "radi") {
+			    filtriraniSportskiObjektiOtvorenost.push(so);			
+			}
+		}
+		
+		filtriraniSportskiObjekti = filtriraniSportskiObjektiOtvorenost;
+	}
+	
+	
+	const rastuceSortiranje = $("#rastuce-sortiranje").is(":checked");
+	const sortiranjePo = $("#tip-sortiranja").val();
+	if (sortiranjePo === "naziv") {
+		if (rastuceSortiranje) {
+			filtriraniSportskiObjekti.sort(function(a, b) {
+				const nameA = a.naziv.toUpperCase();
+				const nameB = b.naziv.toUpperCase();
+				if (nameA < nameB) {
+				  return -1;
+				}
+				if (nameA > nameB) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		} else {
+			filtriraniSportskiObjekti.sort(function(a, b) {
+				const nameA = a.naziv.toUpperCase();
+				const nameB = b.naziv.toUpperCase();
+				if (nameA < nameB) {
+				  return 1;
+				}
+				if (nameA > nameB) {
+				  return -1;
+				}
+				
+				return 0;
+			});
+		}
+	} else if (sortiranjePo === "lokacija") {
+		if (rastuceSortiranje) {
+			filtriraniSportskiObjekti.sort(function(a, b) {
+				const nameA = a.lokacija.adresa.toUpperCase();
+				const nameB = b.lokacija.adresa.toUpperCase();
+				if (nameA < nameB) {
+				  return -1;
+				}
+				if (nameA > nameB) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		} else {
+			filtriraniSportskiObjekti.sort(function(a, b) {
+				const nameA = a.lokacija.adresa.toUpperCase();
+				const nameB = b.lokacija.adresa.toUpperCase();
+				if (nameA < nameB) {
+				  return 1;
+				}
+				if (nameA > nameB) {
+				  return -1;
+				}
+				
+				return 0;
+			});
+		}
+	} else if (sortiranjePo === "prosecna-ocena") {
+		if (rastuceSortiranje) {
+			filtriraniSportskiObjekti.sort(function(a, b) {
+				if (a.prosecnaOcena < b.prosecnaOcena) {
+				  return -1;
+				}
+				if (a.prosecnaOcena > b.prosecnaOcena) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		} else {
+			filtriraniSportskiObjekti.sort(function(a, b) {
+				if (a.prosecnaOcena > b.prosecnaOcena) {
+				  return -1;
+				}
+				if (a.prosecnaOcena < b.prosecnaOcena) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		}
+	}
+	
 	let tableBody = $("#table-body");
 	tableBody.html("");
 	for (let so of filtriraniSportskiObjekti) {

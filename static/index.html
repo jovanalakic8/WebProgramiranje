@@ -50,13 +50,66 @@
     	<div class="input-group w-75 ml-auto mr-auto mb-3">
 		   <input id="pretraga" type="text" class="form-control" aria-label="Pretraga" onkeyup="pretraga()">
 		   <div class="input-group-append">
-		      <select id="kriterijum" onchange="restartujPretragu()">
+		      <select id="kriterijum" onchange="pretraga()">
 		      	<option value="naziv">Naziv</option>
 		      	<option value="tip">Tip</option>
 		      	<option value="lokacija">Lokacija</option>
 		      	<option value="ocena">Ocena</option>
 		      </select>
 		   </div>
+		 </div>
+		 
+		 <div class="d-flex">
+		 	
+		 	<div class="filteri" style="flex:1;">
+		 		<h3 class="ml-3 mt-4">Filteri</h3>
+		 
+				 <div class="d-flex my-5">
+				 	<div class="tip-filter mx-5">
+				 		<h5>Tip objekta</h5>
+				 		
+				 		<div>
+				 			<input type="radio" name="tip" value="" checked onclick="pretraga()" />
+				 			<span>-</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="tip" value="teretana" onclick="pretraga()" />
+				 			<span>teretana</span>
+				 		</div>
+				 		<div>
+				 			<input type="radio" name="tip" value="bazen" onclick="pretraga()" />
+				 			<span>bazen</span>
+				 		</div>
+				 	</div>
+				 	
+				 	<div class="otvorenost-filter">
+				 		<h5>Otvorenost objekta</h5>
+				 		
+				 		<div>
+				 			<input id="input-otvorenost" type="checkbox" name="otvorenost" onclick="pretraga()" />
+				 			<span>Samo otvoreni objekti</span>
+				 		</div>
+				 	</div>
+				 </div>
+		 	</div>
+		 	
+		 	<div class="sortirnaje" style="flex:1;">
+		 		<h3 class="ml-3 mt-4">Sortiranje</h3>
+		 		
+		 		<div class="mb-2">
+			 		<select id="tip-sortiranja" onchange="pretraga()">
+			 			<option value=""></option>
+			 			<option value="naziv">naziv</option>
+			 			<option value="lokacija">lokacija</option>
+			 			<option value="prosecna-ocena">prosecna ocena</option>
+			 		</select>
+		 		</div>
+		 		
+		 		<div>
+		 			<label>Rastuce <input id="rastuce-sortiranje" type="checkbox" onclick="pretraga()" checked /></label>
+		 		</div>
+		 	</div>
+		 	
 		 </div>
     	
     	<table class="w-75 ml-auto mr-auto">

@@ -1,5 +1,7 @@
 package beans;
 
+import java.util.Comparator;
+
 public class SportskiObjekat {
 	
 	private String id;
@@ -66,5 +68,19 @@ public class SportskiObjekat {
 	public void setRadnoVreme(String radnoVreme) {
 		this.radnoVreme = radnoVreme;
 	}
+	
+	public static Comparator<SportskiObjekat> SportskiObjekatOtvorenostComparator 
+		    = new Comparator<SportskiObjekat>() {
+		
+		public int compare(SportskiObjekat a, SportskiObjekat b) {
+		
+		String otvorenA = a.getStatus().toUpperCase();
+		String otvorenB = b.getStatus().toUpperCase();
+		
+		return otvorenB.compareTo(otvorenA);
+		
+		}
+		
+	};
 	
 }
