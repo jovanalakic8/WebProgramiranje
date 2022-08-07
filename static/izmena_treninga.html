@@ -12,7 +12,7 @@
 		<script>
 			$(document).ready( function() {
 				preuzmiTrenere();
-				preuzmiPodatkeOSportskomObjektuIzUrl();
+				preuzmiPodatkeOSportskomObjektu();
 			});
 		</script>
 </head>
@@ -22,7 +22,7 @@
 
 <form id="dodavanje-novog-treninga">
 	<header class="text-center mt-5 mb-5">
-		<h1>Unos novog treninga</h1>
+		<h1>Izmena treninga</h1>
 		<h3 id="objekatIme"></h3>
 	</header>
 	
@@ -32,8 +32,9 @@
 				<label for="exampleInputEmail1">Naziv</label> 
 			</td>
 			<td>
-				<input type="text" class="form-control" id="naziv" placeholder="Kardio" name="naziv" required>
+				<input id="treningId" name="treningId" type="hidden" />
 				<input id="objekatId" name="objekatId" type="hidden" />
+				<input type="text" class="form-control" id="naziv" placeholder="Kardio" name="naziv" required>
 			</td>
 		</tr>
 		<tr id = "tip">
@@ -41,8 +42,8 @@
 				<label>Tip</label>
 			</td>
 			<td>
-				<input type="radio" id = "radio_tip_teretana" name="tip" value="GRUPNI" checked="checked"> grupni
-				<input type="radio" id = "radio_tip_bazen" name="tip" value="PERSONALNI"> personalni
+				<input type="radio" id = "radio_tip_grupni" name="tip" value="GRUPNI" checked="checked"> grupni
+				<input type="radio" id = "radio_tip_personalni" name="tip" value="PERSONALNI"> personalni
 			</td>
 		</tr>
 		<tr>
@@ -81,7 +82,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" class="text-center" >
-				<input id = "kupac" type="button" value="Dodaj" onclick="sacuvajNoviTrening()" class="btn btn-primary">
+				<input id = "kupac" type="button" value="Azuriraj" onclick="azurirajTrening()" class="btn btn-primary">
 			</td>
 		</tr>	
 	</table>

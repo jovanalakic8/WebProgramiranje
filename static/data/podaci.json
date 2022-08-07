@@ -71,13 +71,14 @@
   ],
   "treninzi": [
     {
-      "id": "1659871193893",
-      "naziv": "asdsa",
+      "id": "1659876552303",
+      "naziv": "asde",
       "tip": "PERSONALNI",
-      "trajanjeUMinutima": 2,
+      "trajanjeUMinutima": 23,
       "trenerId": "q",
-      "opis": "asd",
-      "objekatId": "34"
+      "opis": "asde",
+      "slika": "/images/1659873145704.jpg",
+      "objekatId": "123-123"
     }
   ]
 }
