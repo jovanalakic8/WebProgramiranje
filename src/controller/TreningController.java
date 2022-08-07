@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.servlet.MultipartConfigElement;
 
@@ -15,14 +16,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import beans.Trening;
+import beans.User;
 import dto.TreningDTO;
 import services.TreningService;
+import services.UserService;
+import spark.Session;
 import utils.TreningTipEnum;
 
 public class TreningController {
 	
 	private static Gson g = new GsonBuilder().setPrettyPrinting().create();
-	private static TreningService service = new TreningService();
+	private static TreningService treningService = new TreningService();
+	private static UserService userService = new UserService();
 	
 	public static void endpoints() {
 		
@@ -31,7 +36,7 @@ public class TreningController {
 			res.status(200);
 			
 			String treningId = req.params("id");
-			Trening trening = service.getTreningPoId(treningId);
+			Trening trening = treningService.getTreningPoId(treningId);
 			if (trening == null) {
 				res.type("application/json");
 				res.status(404);
@@ -49,6 +54,61 @@ public class TreningController {
 				String json = g.toJson(trening, Trening.class);
 				return json;
 			}
+		});
+		
+		get("treninzi/menadzer", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik != null) {
+				res.status(403);
+				return "Niste ulogovani";
+			}
+			
+			String objekatId = userService.getObjekatZaMenadzera(trenutniKorisnik.getUserName());
+			if (objekatId == null) {
+				res.type("application/json");
+				res.status(404);
+				return "Menadzer nema objekat kojim upravlja";
+			}
+			
+			List<Trening> treninzi = treningService.getTreninziPoObjektu(objekatId);
+			String json = g.toJson(treninzi, List.class);
+			return json;
+		});
+		
+		get("treninzi/grupni/", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik != null || !trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+				res.status(403);
+				return "Nemate pristup treninzima";
+			}
+			
+			List<Trening> treninzi = treningService.getGrupniTreninziPoTreneru(trenutniKorisnik.getUserName());
+			String json = g.toJson(treninzi, List.class);
+			return json;
+		});
+		
+		get("treninzi/personalni/", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik != null || !trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+				res.status(403);
+				return "Nemate pristup treninzima";
+			}
+			
+			List<Trening> treninzi = treningService.getPersonalniTreninziPoTreneru(trenutniKorisnik.getUserName());
+			String json = g.toJson(treninzi, List.class);
+			return json;
 		});
 		
 		post("/treninzi", (req, res) -> {
@@ -107,7 +167,7 @@ public class TreningController {
 			noviTrening.setObjekatId(objekatId);
 			noviTrening.setSlika(slikaURL);
 			
-			Trening kreiranTrening = service.dodajTrening(noviTrening);
+			Trening kreiranTrening = treningService.dodajTrening(noviTrening);
 			
 			res.status(200);
 			return g.toJson(kreiranTrening);
@@ -164,7 +224,7 @@ public class TreningController {
 				}
 			}
 		    			
-			Trening trening = service.getTreningPoId(treningId);
+			Trening trening = treningService.getTreningPoId(treningId);
 			if (trening == null) {
 				res.status(400);
 				return "Trening nije pronadjen";
@@ -181,7 +241,7 @@ public class TreningController {
 				trening.setSlika(slikaURL);
 			}
 			
-			service.azurirajTrening(trening);
+			treningService.azurirajTrening(trening);
 			
 			res.status(200);
 			return g.toJson(trening);

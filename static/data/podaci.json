@@ -7,7 +7,8 @@
       "lastName": "Qa",
       "sex": "MUSKI",
       "birthDate": "22-02-2002",
-      "role": "TRENER"
+      "role": "TRENER",
+      "managedSportObjectId": null
     },
     {
       "userName": "z",
@@ -16,7 +17,8 @@
       "lastName": "Z",
       "sex": "MUSKI",
       "birthDate": "22-02-2002",
-      "role": "MENADZER"
+      "role": "MENADZER",
+      "managedSportObjectId": null
     },
     {
       "userName": "a",
@@ -25,7 +27,8 @@
       "lastName": "a",
       "sex": "ZENSKI",
       "birthDate": "11-01-2000",
-      "role": "KUPAC"
+      "role": "KUPAC",
+      "managedSportObjectId": null
     },
     {
       "userName": "b",
@@ -34,7 +37,8 @@
       "lastName": "b",
       "sex": "MUSKI",
       "birthDate": "11-01-2000",
-      "role": "ADMIN"
+      "role": "ADMIN",
+      "managedSportObjectId": null
     }
   ],
   "sportskiObjekti": [

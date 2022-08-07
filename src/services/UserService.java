@@ -89,4 +89,14 @@ public class UserService {
 		
 		return dtos;
 	}
+	
+	public String getObjekatZaMenadzera(String menadzerUserName) {
+		for (User user : DataManager.data.getKorisnici()) {
+			if (user.getUserName().equals(menadzerUserName)) {
+				return user.getManagedSportObjectId();			
+			}
+		}
+		
+		return null;
+	}
 }

@@ -1,9 +1,11 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import beans.Trening;
 import data.DataManager;
+import utils.TreningTipEnum;
 
 public class TreningService {
 	
@@ -25,6 +27,39 @@ public class TreningService {
 		}
 		
 		return null;
+	}
+	
+	public List<Trening> getTreninziPoObjektu(String objekatId) {
+		List<Trening> treninzi = new ArrayList<Trening>();
+		for (Trening tr : getSviTreninzi()) {
+			if (tr.getObjekatId().equals(objekatId)) {
+				treninzi.add(tr);
+			}
+		}
+		
+		return treninzi;
+	}
+	
+	public List<Trening> getGrupniTreninziPoTreneru(String trenerId) {
+		List<Trening> treninzi = new ArrayList<Trening>();
+		for (Trening tr : getSviTreninzi()) {
+			if (tr.getTrenerId().equals(trenerId) && tr.getTip() == TreningTipEnum.GRUPNI) {
+				treninzi.add(tr);
+			}
+		}
+		
+		return treninzi;
+	}
+	
+	public List<Trening> getPersonalniTreninziPoTreneru(String trenerId) {
+		List<Trening> treninzi = new ArrayList<Trening>();
+		for (Trening tr : getSviTreninzi()) {
+			if (tr.getTrenerId().equals(trenerId) && tr.getTip() == TreningTipEnum.PERSONALNI) {
+				treninzi.add(tr);
+			}
+		}
+		
+		return treninzi;
 	}
 
 	public void azurirajTrening(Trening trening) {
