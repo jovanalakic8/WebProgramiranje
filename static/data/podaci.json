@@ -68,5 +68,16 @@
       "prosecnaOcena": 1.3,
       "radnoVreme": "09-12"
     }
+  ],
+  "treninzi": [
+    {
+      "id": "1659871193893",
+      "naziv": "asdsa",
+      "tip": "PERSONALNI",
+      "trajanjeUMinutima": 2,
+      "trenerId": "q",
+      "opis": "asd",
+      "objekatId": "34"
+    }
   ]
 }

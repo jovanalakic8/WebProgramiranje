@@ -174,7 +174,7 @@ public class UserController {
 			}
 		});
 		
-		get("/users/without-object", (req, res) -> {
+		get("/users/menadzeri/bez-objekta", (req, res) -> {
 			res.type("application/json");
 			Session ss = req.session(true);
 			User k = ss.attribute("user");
@@ -197,6 +197,15 @@ public class UserController {
 				return json;
 			}
 		});
+		
+		
+		get("/users/treneri", (req, res) -> {
+			res.type("application/json");
+				
+			String json = g.toJson(userService.sviTreneri(), List.class);
+			return json;
+		});
+		
 	}
 
 }

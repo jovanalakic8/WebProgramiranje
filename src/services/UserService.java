@@ -77,4 +77,16 @@ public class UserService {
         
 	    return input;
 	}
+	
+	public List<UserWithoutCredentialsDTO> sviTreneri() {
+		List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
+		for (User user : DataManager.data.getKorisnici()) {
+			if (user.getRole().toLowerCase().equals("trener")) {
+				dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
+						user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole()));				
+			}
+		}
+		
+		return dtos;
+	}
 }

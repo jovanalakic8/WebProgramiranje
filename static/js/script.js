@@ -345,7 +345,7 @@ function pretragaRegistrovanihKorisnika() {
 
 function pronadjiMenadzereBezObekta() {
 	$.ajax({
-        url: "/users/without-object",
+        url: "users/menadzeri/bez-objekta",
         type: "GET",
         contentType: "application/json",
         dataType: "json",
@@ -605,4 +605,61 @@ function preuzimanjePodatakaZaSportskiObjekat() {
         }
     });
 	
+}
+
+
+function preuzmiTrenere() {
+	$.ajax({
+        url: "/users/treneri",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+            const treneri = data.responseJSON;
+            let select = $("#select-treneri");
+            for (let trener of treneri) {
+                select.append("<option value='" + trener.userName + "' >" + trener.name + " " + trener.lastName + "</option>");
+            }
+ 
+        }
+    });
+}
+
+function preuzmiPodatkeOSportskomObjektuIzUrl () {
+	let urlVars = getUrlVars();
+	if (!urlVars.objectId) {
+		alert("Id objekta nije prolsedjen");
+		return;
+	}
+	
+	$("#objekatIme").val(urlVars.objectName);
+	$("#objekatId").val(urlVars.objectId);
+}
+
+function sacuvajNoviTrening() {
+	if ($("#slika")[0].files.length === 0) {
+		alert("Slika mora da bude izabran");
+		return;
+	}
+	
+    let formData = new FormData($("#dodavanje-novog-treninga")[0]);
+        
+    $.ajax({
+        url: "/treninzi",
+        type: "POST",
+        data: formData,
+        enctype: "multipart/form-data",
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        complete : function (data) {
+            if(data.status == 400)
+                alert(data.responseText);
+            else {
+                alert("Trening je uspesno sacuvan");
+                window.location.reload();
+            }
+        }
+    });
 }

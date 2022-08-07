@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Novi trening</title>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/script.js"></script>
+		<link href="css/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+		
+		<script>
+			$(document).ready( function() {
+				preuzmiTrenere();
+				preuzmiPodatkeOSportskomObjektuIzUrl();
+			});
+		</script>
+</head>
+<body>
+
+<input class="ml-2 mt-2 btn btn-primary" type="button" value="Nazad" onclick = "window.location.replace('/')">
+
+<form id="dodavanje-novog-treninga">
+	<header class="text-center mt-5 mb-5">
+		<h1>Unos novog treninga</h1>
+		<h3 id="objekatIme"></h3>
+	</header>
+	
+	<table id="form_holder">
+		<tr><td><input id="objekatId" name="objekatId" type="hidden" /></td></tr>
+		
+		<tr>
+			<td>
+				<label for="exampleInputEmail1">Naziv</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="naziv" placeholder="Kardio" name="naziv" required>
+			</td>
+		</tr>
+		<tr id = "tip">
+			<td>
+				<label>Tip</label>
+			</td>
+			<td>
+				<input type="radio" id = "radio_tip_teretana" name="tip" value="GRUPNI" checked="checked"> grupni
+				<input type="radio" id = "radio_tip_bazen" name="tip" value="PERSONALNI"> personalni
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="opis">Opis</label> 
+			</td>
+			<td>
+				<input type="text" class="form-control" id="opis" placeholder="Opis" name="opis">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="trajanje">Trajanje (min.)</label> 
+			</td>
+			<td>
+				<input type="number" class="form-control" id="trajanje" placeholder="20" name="trajanje">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="trener">Trener</label> 
+			</td>
+			<td>
+				<select id="select-treneri" name="trener" class="form-control" required>
+					<option></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="slika">Slika</label> 
+			</td>
+			<td>
+				<input type="file" class="form-control" id="slika" accept="image/png, image/gif, image/jpeg" name="slika" required>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="text-center" >
+				<input id = "kupac" type="button" value="Dodaj" onclick="sacuvajNoviTrening()" class="btn btn-primary">
+			</td>
+		</tr>	
+	</table>
+	<fieldset id="log_war"></fieldset>
+	</form>
+</body>
+</html>

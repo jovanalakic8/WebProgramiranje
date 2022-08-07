@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import beans.SportskiObjekat;
+import beans.Trening;
 import beans.User;
 
 
@@ -48,13 +50,19 @@ public class DataManager {
 			data = g.fromJson(json, Data.class);
 		} catch (FileNotFoundException e) {
 			data.setKorisnici(new ArrayList<User>());
+			data.setSportskiObjekti(new ArrayList<SportskiObjekat>());
+			data.setTreninzi(new ArrayList<Trening>());
 			System.out.println("Fajl nije pronadjen");
 		} catch (IOException e) {
 			data.setKorisnici(new ArrayList<User>());
+			data.setSportskiObjekti(new ArrayList<SportskiObjekat>());
+			data.setTreninzi(new ArrayList<Trening>());
 			System.out.println("Neuspesno ucitavanje podataka");
 		} catch (Exception e) {
 			e.printStackTrace();
 			data.setKorisnici(new ArrayList<User>());
+			data.setSportskiObjekti(new ArrayList<SportskiObjekat>());
+			data.setTreninzi(new ArrayList<Trening>());
 			System.out.println("Greska pri ucitavanju");
 		}
 
