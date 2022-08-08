@@ -4,6 +4,7 @@ import static spark.Spark.port;
 import static spark.Spark.staticFiles;
 import java.io.File;
 
+import controller.ClanarinaController;
 import controller.SportskiObjekatController;
 import controller.TreningController;
 import controller.UserController;
@@ -21,6 +22,7 @@ public class SparkAppMain {
 		UserController.endpoints();
 		SportskiObjekatController.endpoints();
 		TreningController.endpoints();
+		ClanarinaController.endpoints();
 		
 	}
 }

@@ -1,14 +1,15 @@
-package beans;
+package dto;
+
+import java.time.LocalDateTime;
 
 import utils.ClanarinaTip;
 
-public class ClanarinaPonuda {
-	
+public class ClanarinaPonudaDTO {
 	private String id;
 	private String naziv;
 	private ClanarinaTip tip;
 	private long cena;
-	private int brojDanaVazenja;
+	private String vaziDo;
 	private int brojTermina;
 	
 	public String getId() {
@@ -35,11 +36,11 @@ public class ClanarinaPonuda {
 	public void setCena(long cena) {
 		this.cena = cena;
 	}
-	public int getBrojDanaVazenja() {
-		return brojDanaVazenja;
+	public String getVaziDo() {
+		return vaziDo;
 	}
-	public void setBrojDanaVazenja(int brojDanaVazenja) {
-		this.brojDanaVazenja = brojDanaVazenja;
+	public void setVaziDo(String vaziDo) {
+		this.vaziDo = vaziDo;
 	}
 	public int getBrojTermina() {
 		return brojTermina;
@@ -47,6 +48,4 @@ public class ClanarinaPonuda {
 	public void setBrojTermina(int brojTermina) {
 		this.brojTermina = brojTermina;
 	}
-	
-	
 }

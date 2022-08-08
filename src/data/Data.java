@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import beans.Clanarina;
 import beans.ClanarinaPonuda;
 import beans.SportskiObjekat;
 import beans.Trening;
@@ -15,6 +16,7 @@ public class Data {
 	private List<SportskiObjekat> sportskiObjekti = new ArrayList<SportskiObjekat>();
 	private List<Trening> treninzi = new ArrayList<Trening>();
 	private List<ClanarinaPonuda> ponudaClanarina = new ArrayList<ClanarinaPonuda>();
+	private List<Clanarina> clanarine = new ArrayList<Clanarina>();
 
 	public Collection<User> getKorisnici() {
 		return korisnici;
@@ -47,7 +49,13 @@ public class Data {
 	public void setPonudaClanarina(List<ClanarinaPonuda> ponudaClanarina) {
 		this.ponudaClanarina = ponudaClanarina;
 	}
-	
-	
+
+	public List<Clanarina> getClanarine() {
+		return clanarine;
+	}
+
+	public void setClanarine(List<Clanarina> clanarine) {
+		this.clanarine = clanarine;
+	}
 	
 }

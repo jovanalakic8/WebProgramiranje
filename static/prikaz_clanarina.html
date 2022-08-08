@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Clanarine</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/zajednicke_funkcije.js"></script>
+    <script src="js/clanarina.js"></script>
+    
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    
+    <script>
+		$(document).ready( function() {
+			ucitajPonudeClanarina();
+		});
+	</script>
+</head>
+<body>
+	<input class="ml-2 mt-2 btn btn-primary" type="button" value="Nazad" onclick = "window.location.replace('/')">
+	
+    <main>
+    	<h1 class="text-center mt-3 mb-3" >Clanarine</h1>
+    	
+    	<table class="w-75 ml-auto mr-auto">
+    		<thead>
+    			<tr>
+                    <th>Naziv</th>
+                    <th>Tip</th>
+                    <th>Cena</th>
+                    <th>Broj dana vazenja</th>
+                    <th>Dozvoljeni broj termina</th>
+                    <th></th>
+                </tr>
+    		</thead>
+    		<tbody id="table-body">
+    		
+    		</tbody>
+    	</table>
+    </main>
+</body>
+</html>

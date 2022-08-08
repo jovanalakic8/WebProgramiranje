@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pregled sportskog objekta</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/clanarina.js"></script>
+    <script src="js/zajednicke_funkcije.js"></script>
+    
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script>
+    $(document).ready( function() {
+		preuzmiPodatkeZaClanarinu();
+	});
+	</script>
+</head>
+<body>
+	<input type="button" value="Nazad" onclick = "window.location.replace('/')" class="btn btn-primary ml-2 mt-2">
+	
+	<h1 class="text-center mb-5">Pregled clanarine za kupovinu</h1>
+	
+	<form id="clanarinaForm">
+	    <table id="form_holder">
+	        <tr>
+	            <td><label for="nazivTekst">Naziv</label></td>
+	            <td>
+	            	<input type="text" class="form-control" id="nazivTekst" name="nazivTekst" disabled>
+	            	<input type="hidden" class = "form-control" id="naziv" name="naziv">
+            	</td>
+	        </tr>
+	        <tr>
+	            <td><label for = "tipTekst">Tip</label></td>
+	            <td>
+	            	<input type="text" class = "form-control" id="tipTekst" name="tipTekst" disabled>
+	            	<input type="hidden" class = "form-control" id="tip" name="tip">
+            	</td>
+	        </tr>
+	        <tr>
+	            <td><label for = "cenaPrikaz">Cena</label></td>
+	            <td>
+	            	<input type="number" class = "form-control" id="cenaPrikaz" name="cenaPrikaz" disabled>
+	            	<input type="hidden" class = "form-control" id="cena" name="cena">
+            	</td>
+	        </tr>
+	        <tr>
+	            <td><label for = "vaziDoPrikaz">Vazi do</label></td>
+	            <td>
+	            	<input type="date" class = "form-control" id="vaziDoPrikaz" name="vaziDoPrikaz" disabled>
+	            	<input type="hidden" class = "form-control" id="vaziDo" name="vaziDo">
+            	</td>
+	        </tr>
+	        <tr>
+	            <td><label for = "brojTerminaTekst">Broj dozvoljenih termina</label></td>
+	            <td>
+	            	<input type="text" class = "form-control" id="brojTerminaTekst" name="brojTerminaTekst" disabled>
+	            	<input type="hidden" class = "form-control" id="brojTermina" name="brojTermina">
+            	</td>
+	        </tr>
+	    </table>
+	</form>
+	
+	<div class="text-center mt-5">
+		<input id = "kupi" type="button" value="Kupi" onclick="potvrdiKupovinu()" class="btn btn-primary">
+	</div>
+</body>
+</html>

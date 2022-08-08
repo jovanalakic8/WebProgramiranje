@@ -7,8 +7,7 @@
       "lastName": "Qa",
       "sex": "MUSKI",
       "birthDate": "22-02-2002",
-      "role": "TRENER",
-      "managedSportObjectId": null
+      "role": "TRENER"
     },
     {
       "userName": "z",
@@ -17,8 +16,7 @@
       "lastName": "Z",
       "sex": "MUSKI",
       "birthDate": "22-02-2002",
-      "role": "MENADZER",
-      "managedSportObjectId": null
+      "role": "MENADZER"
     },
     {
       "userName": "a",
@@ -27,8 +25,7 @@
       "lastName": "a",
       "sex": "ZENSKI",
       "birthDate": "11-01-2000",
-      "role": "KUPAC",
-      "managedSportObjectId": null
+      "role": "KUPAC"
     },
     {
       "userName": "b",
@@ -37,8 +34,7 @@
       "lastName": "b",
       "sex": "MUSKI",
       "birthDate": "11-01-2000",
-      "role": "ADMIN",
-      "managedSportObjectId": null
+      "role": "ADMIN"
     }
   ],
   "sportskiObjekti": [
@@ -85,5 +81,34 @@
       "objekatId": "123-123"
     }
   ],
-  "ponudaClanarina": []
+  "ponudaClanarina": [
+    {
+      "id": "1234567890",
+      "naziv": "ponuda1",
+      "tip": "MESECNA",
+      "cena": 2000,
+      "brojDanaVazenja": 10,
+      "brojTermina": 1
+    }
+  ],
+  "clanarine": [
+    {
+      "id": "1659997301957",
+      "status": "AKTIVNA",
+      "vaziDo": "2022-08-19",
+      "datumPlacanja": "2022-08-09T00:21:41.957565800",
+      "brojPreostalihTermina": 1,
+      "ukupanBrojTermina": 1,
+      "cena": 2000.0,
+      "kupac": {
+        "userName": "b",
+        "password": "b",
+        "name": "b",
+        "lastName": "b",
+        "sex": "MUSKI",
+        "birthDate": "11-01-2000",
+        "role": "ADMIN"
+      }
+    }
+  ]
 }
