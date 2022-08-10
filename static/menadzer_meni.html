@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pocetna</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/zajednicke_funkcije.js"></script>
+    <script src="js/autentifikacija.js"></script>
+	    <script src="js/sportski_objekti.js"></script>
+	    <script src="js/treninzi.js"></script>
+    
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    
+    <script>
+		$(document).ready( function() {
+			proveraLoginaIUloge("menadzer");
+			preuzmiPodatakeZaMenadzerovSportskiObjekat();
+			getTreninziZaMenadzera();
+		});
+		
+		function preusmeriNaStranicuZaDodavanjeTreninga() {
+			let url = '/novi_trening.html?';
+			url += "objectId=" + $("#objekatId").val();
+			url += "objectName=" + $("#naziv").val();
+			window.location.href = url;
+		}
+	</script>
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-primary navbar-expand">
+	  <ul class="navbar-nav">
+      <li class="nav-item active">
+      	<a class="nav-link" href="/">Pocetna</a>
+      </li>
+      
+      <li class="nav-item logged">
+          <a class="nav-link" href="/my_profile.html">Moj profil</a>
+      </li>
+      
+      <li class="nav-item logged">
+          <a class="nav-link" href="/my_profile.html">Pregled kupaca</a>
+      </li>
+      
+      <li class="nav-item logged">
+          <a class="nav-link" href="/my_profile.html">Pregled trenera</a>
+      </li>
+      
+      <li class="nav-item logged">
+          <button class="btn text-white" onclick="logout()">Odjava</button>
+      </li>
+      
+      </ul>
+	</nav>
+    
+    <main>
+    	<h1 class="text-center mt-3 mb-3" >Moj objekat</h1>
+    	
+	    <table id="form_holder">
+	        <tr>
+	            <td><label for="naziv">Naziv</label></td>
+	            <td>
+	            	<input type="text" class="form-control" id="naziv" name="naziv">
+            		<input type="text" class="form-control" id="objekatId" name="naziv">
+            	</td>
+	        </tr>
+	        <tr>
+	            <td><label for = "tip">Tip</label></td>
+	            <td><input type="text" class = "form-control" id="tip" name="tip"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "status">Status</label></td>
+	            <td><input type="text" class = "form-control" id="status" name="status"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "lokacija">Lokacija</label></td>
+	            <td><input type="text" class = "form-control" id="lokacija" name="lokacija"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "logo">Logo</label></td>
+	            <td><img src = "" id="logo" name="logo" height="100" width="100"></td>
+	        </tr>
+	        <tr>
+	            <td><label for = "ocena">Prosecna ocena</label></td>
+	            <td><input type="text" class = "form-control" id="ocena" name="ocena"></td>
+	        </tr>
+	        
+	    </table>
+	
+		<h1 class="text-center mt-3 mb-3" >Dostupni treninzi</h1>
+		
+		<div class="text-right">
+			<input class="m-5 btn btn-primary" type="button" value="Novi trening" onclick = "preusmeriNaStranicuZaDodavanjeTreninga()">
+		</div>
+		
+		<table id="treninzi-tabela" class="w-75 ml-auto mr-auto">
+    		<thead>
+    			<tr>
+                    <th>Naziv</th>
+                    <th>Tip</th>
+                    <th>Trajanje (min.)</th>
+                    <th>Trener</th>
+                    <th>Opis</th>
+                    <th>Slika</th>
+                    <th></th>
+                </tr>
+    		</thead>
+    		<tbody id="table-body">
+    		
+    		</tbody>
+    	</table>
+    	
+    </main>
+</body>
+</html>

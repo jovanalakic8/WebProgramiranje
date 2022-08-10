@@ -9,7 +9,7 @@ public class TreningDTO {
 	private String tip;
 	private String opis;
 	private int trajanje;
-	private String trenerId;
+	private String trener;
 	private String slikaURL;
 	private String objekatId;
 	
@@ -44,11 +44,11 @@ public class TreningDTO {
 	public void setTrajanje(int trajanje) {
 		this.trajanje = trajanje;
 	}
-	public String getTrenerId() {
-		return trenerId;
+	public String getTrener() {
+		return trener;
 	}
-	public void setTrenerId(String trenerId) {
-		this.trenerId = trenerId;
+	public void setTrener(String trenerId) {
+		this.trener = trenerId;
 	}
 	public String getSlikaURL() {
 		return slikaURL;

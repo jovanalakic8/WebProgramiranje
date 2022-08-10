@@ -93,3 +93,45 @@ function azurirajTrening() {
         }
     });
 }
+
+function getTreninziZaMenadzera () {
+	
+	$.ajax({
+        url: "treninzi/menadzer",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        error: function(error) {
+			if (data.status === 403) {
+				alert("Niste ulogovani");
+				window.location.href="/login.html";
+				return;	
+			} else if (data.status === 403) {
+				$("#table-body").html("<h3>Treninzi nisu pronadjeni</h3>");
+			}
+		},
+        complete: function(data) {
+			
+			let treninzi = data.responseJSON;
+			let tableBody = $("#table-body");
+            tableBody.html("");
+            for (let t of treninzi) {
+                tableBody.append(kreirajRedZaTrening(t));
+            }
+			
+        }
+    });
+}
+
+function kreirajRedZaTrening(t) {
+	let row = "<tr>";
+	row += "<td>" + t.naziv + "</td>";
+	row += "<td>" + t.tip + "</td>";
+	row += "<td>" + t.trajanje + "</td>";
+	row += "<td>" + t.opis + "</td>";
+	row += "<td>" + t.trener + "</td>";
+	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
+	row += "<td><a href='/izmena_treninga.html?treningId=" + t.id + "' class='btn btn-primary'>" + "Izmena" + "</a></td>";
+	row += "</tr>";
+	return row;
+}

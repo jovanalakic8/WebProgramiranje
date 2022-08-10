@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.MultipartConfigElement;
@@ -31,6 +32,51 @@ public class TreningController {
 	
 	public static void endpoints() {
 		
+		get("treninzi/menadzer", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Niste ulogovani";
+			} else if (!trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+				res.status(403);
+				return "Niste ulogovani kao menadzer";
+			}
+			
+			String objekatId = userService.getObjekatZaMenadzera(trenutniKorisnik.getUserName());
+			if (objekatId == null) {
+				res.type("application/json");
+				res.status(404);
+				return "Menadzer nema objekat kojim upravlja";
+			}
+			
+			List<Trening> treninzi = treningService.getTreninziPoObjektu(objekatId);
+			List<TreningDTO> dtos = new ArrayList<TreningDTO>();
+			for (Trening trening : treninzi) {
+				TreningDTO treningDTO = new TreningDTO();
+				treningDTO.setId(trening.getId());
+				treningDTO.setNaziv(trening.getNaziv());
+				treningDTO.setObjekatId(trening.getObjekatId());
+				treningDTO.setOpis(trening.getOpis());
+				treningDTO.setSlikaURL(trening.getSlika());
+				treningDTO.setTip(trening.getTip().toString());
+				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+				
+				User trener = userService.getPoUsername(trening.getTrenerId());
+				if (trener != null) {
+					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());					
+				}
+				
+				dtos.add(treningDTO);
+			}
+			
+			String json = g.toJson(dtos, List.class);
+			return json;
+		});
+		
 		get("treninzi/:id", (req, res) -> {
 			res.type("application/json");
 			res.status(200);
@@ -50,33 +96,15 @@ public class TreningController {
 				treningDTO.setSlikaURL(trening.getSlika());
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
-				treningDTO.setTrenerId(trening.getTrenerId());
+				
+				User trener = userService.getPoUsername(trening.getTrenerId());
+				if (trener != null) {
+					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());		
+				}
+				
 				String json = g.toJson(trening, Trening.class);
 				return json;
 			}
-		});
-		
-		get("treninzi/menadzer", (req, res) -> {
-			res.type("application/json");
-			res.status(200);
-			
-			Session ss = req.session(true);
-			User trenutniKorisnik = ss.attribute("user");
-			if (trenutniKorisnik != null) {
-				res.status(403);
-				return "Niste ulogovani";
-			}
-			
-			String objekatId = userService.getObjekatZaMenadzera(trenutniKorisnik.getUserName());
-			if (objekatId == null) {
-				res.type("application/json");
-				res.status(404);
-				return "Menadzer nema objekat kojim upravlja";
-			}
-			
-			List<Trening> treninzi = treningService.getTreninziPoObjektu(objekatId);
-			String json = g.toJson(treninzi, List.class);
-			return json;
 		});
 		
 		get("treninzi/grupni/", (req, res) -> {

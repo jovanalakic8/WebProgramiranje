@@ -245,6 +245,37 @@ function preuzimanjePodatakaZaSportskiObjekat() {
 	
 }
 
+function preuzmiPodatakeZaMenadzerovSportskiObjekat() {
+	
+	$.ajax({
+        url: "/sportski-objekti/menadzer",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        error: function (error) {
+			console.log(error)
+			if (error.status === 403) {
+				return;
+			} else if (error.status === 404) {
+				$("#form_holder").html("<h3>Menadzer nema objekat kojim upravlja</h3>");
+				return;
+			}
+		},
+        complete: function(data) {
+			
+            const sportskiObjekat = data.responseJSON;
+            $("#objekatId").val(sportskiObjekat.id);
+ 			$("#naziv").val(sportskiObjekat.naziv);
+ 			$("#tip").val(sportskiObjekat.tipObjekta);
+ 			$("#status").val(sportskiObjekat.status);
+ 			$("#lokacija").val(sportskiObjekat.lokacija.adresa);
+ 			$("#logo").attr("src", sportskiObjekat.logo);
+ 			$("#ocena").val(sportskiObjekat.prosecnaOcena);
+        }
+    });
+	
+}
+
 function preuzmiPodatkeOSportskomObjektuIzUrl () {
 	let urlVars = getUrlVars();
 	if (!urlVars.objectId) {

@@ -99,4 +99,14 @@ public class UserService {
 		
 		return null;
 	}
+	
+	public User getPoUsername(String username) {
+		for (User user : DataManager.data.getKorisnici()) {
+			if (user.getUserName().equals(username)) {
+				return user;			
+			}
+		}
+		
+		return null;
+	}
 }

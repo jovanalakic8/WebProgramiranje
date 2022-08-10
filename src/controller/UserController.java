@@ -42,7 +42,7 @@ public class UserController {
 				JsonParser parser = new JsonParser();
 				JsonElement jsonElement = parser.parse(json);
 				JsonObject jsonObject = jsonElement.getAsJsonObject();
-				jsonObject.addProperty("uloga", korisnik.getClass().toString());
+				jsonObject.addProperty("uloga", korisnik.getRole());
 				return jsonObject.toString();
 			} catch (Exception e) {
 				res.status(400);
@@ -102,7 +102,7 @@ public class UserController {
 				JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
 				return jsonObject.toString();
 			} else {
-				String jsonString = "{'loggedIn': true}";
+				String jsonString = "{'loggedIn': true, 'uloga': " + k.getRole() + "}";
 				JsonObject jsonObject = (JsonObject) parser.parse(jsonString);
 				return jsonObject.toString();
 			}

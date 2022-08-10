@@ -6,6 +6,9 @@
         <script src="js/jquery.min.js"></script>
         <script src="js/treninzi.js"></script>
         <script src="js/zajednicke_funkcije.js"></script>
+        <script src="js/korisnici.js"></script>
+        <script src="js/sportski_objekti.js"></script>
+        <script src="js/autentifikacija.js"></script>
         
 		<link href="css/style.css" rel="stylesheet">
 		<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
@@ -13,6 +16,7 @@
 		
 		<script>
 			$(document).ready( function() {
+				proveraLoginaIUloge("menadzer");
 				preuzmiTrenere();
 				preuzmiPodatkeOSportskomObjektuIzUrl();
 			});
@@ -20,7 +24,7 @@
 </head>
 <body>
 
-<input class="ml-2 mt-2 btn btn-primary" type="button" value="Nazad" onclick = "window.location.replace('/')">
+<input class="ml-2 mt-2 btn btn-primary" type="button" value="Nazad" onclick = "window.location.replace('/menadzer_meni.html')">
 
 <form id="dodavanje-novog-treninga">
 	<header class="text-center mt-5 mb-5">

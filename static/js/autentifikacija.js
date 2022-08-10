@@ -7,12 +7,19 @@ function login() {
 		data: s,
 		contentType: "application/json",
 		dataType: "json",
-		complete : function (data) {    
+		complete : function (data) {
+			console.log(data.responseJSON.uloga.toLowerCase())
+		    if (data.responseJSON.uloga.toLowerCase() === "menadzer") {
+				window.location.href = "/menadzer_meni.html"
+				return;
+			}
+			    
             window.location.replace("/");
 		}, error: function(e){
-		    if(e.status == 400){
+		    if (e.status == 400){
 		        alert(e.responseText);
-		    }
+		        return;
+		    } 
 		}
 	});
 }
@@ -52,13 +59,29 @@ function proveriLogin() {
 	});
 }
 
+function proveraLoginaIUloge(uloga) {
+	$.ajax({
+		url: "isLoggedIn",
+		type: "GET",
+		complete: function(data) {
+			let dataJSON = data.responseJSON;
+			if (!dataJSON.loggedIn) {
+				alert("Niste ulogovani");
+				window.location.href = "/login.html";
+			} else if (dataJSON.uloga.toLowerCase() !== uloga) {
+				alert("Niste prijavljeni kao " + uloga);
+				window.location.href = "/login.html";
+			}
+		}
+	});
+}
+
 function preusmeriUlogovanogKorisnika() {
 	$.ajax({
 		url: "isLoggedIn",
 		type: "GET",
 		complete: function(data) {
 			let dataJSON = data.responseJSON;
-			console.log(dataJSON)
 			if(dataJSON.loggedIn) {
 				window.location.href = "/";
 			}

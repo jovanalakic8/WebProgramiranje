@@ -18,8 +18,10 @@ import com.google.gson.GsonBuilder;
 
 import beans.Lokacija;
 import beans.SportskiObjekat;
+import beans.User;
 import dto.NoviObjekatDTO;
 import services.SportskiObjektiService;
+import spark.Session;
 import spark.utils.IOUtils;
 
 
@@ -29,6 +31,33 @@ public class SportskiObjekatController {
 	private static SportskiObjektiService service = new SportskiObjektiService();
 	
 	public static void endpoints() {
+		
+		get("/sportski-objekti/menadzer", (req, res) -> {
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Niste ulogovani";
+			} else if (!trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+				res.status(403);
+				return "Niste ulogovani kao menadzer";
+			}
+			
+			res.type("application/json");
+			res.status(200);
+			
+			String objekatId = trenutniKorisnik.getManagedSportObjectId();
+			
+			SportskiObjekat sportskiObjekat = service.getSportskiObjekatPoId(objekatId);
+			if (sportskiObjekat == null) {
+				res.type("application/json");
+				res.status(404);
+				return "Objekat nije pronadjen";
+			} else {
+				String json = g.toJson(sportskiObjekat, SportskiObjekat.class);
+				return json;
+			}
+		});
 		
 		get("/sportski-objekti", (req, res) -> {
 			res.type("application/json");
