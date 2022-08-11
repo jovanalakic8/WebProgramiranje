@@ -12,6 +12,12 @@ function login() {
 		    if (data.responseJSON.uloga.toLowerCase() === "menadzer") {
 				window.location.href = "/menadzer_meni.html"
 				return;
+			} else if (data.responseJSON.uloga.toLowerCase() === "admin") {
+				window.location.href = "/admin_meni.html"
+				return;
+			} else if (data.responseJSON.uloga.toLowerCase() === "trener") {
+				window.location.href = "/trener_meni.html"
+				return;
 			}
 			    
             window.location.replace("/");

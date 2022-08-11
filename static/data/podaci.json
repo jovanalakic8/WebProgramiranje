@@ -80,6 +80,16 @@
       "opis": "asde",
       "slika": "/images/1659873145704.jpg",
       "objekatId": "123-123"
+    },
+     {
+      "id": "1659876552304",
+      "naziv": "asde",
+      "tip": "GRUPNI",
+      "trajanjeUMinutima": 11,
+      "trenerId": "q",
+      "opis": "asde",
+      "slika": "/images/1659873145704.jpg",
+      "objekatId": "123-123"
     }
   ],
   "ponudaClanarina": [

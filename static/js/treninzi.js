@@ -135,3 +135,84 @@ function kreirajRedZaTrening(t) {
 	row += "</tr>";
 	return row;
 }
+
+function getGrupniTreninziZaTrenera() {
+	$.ajax({
+	    url: "treninzi/trener/grupni/",
+	    type: "GET",
+	    contentType: "application/json",
+	    dataType: "json",
+	    error: function(error) {
+			if (data.status === 403) {
+				alert("Niste ulogovani");
+				window.location.href="/login.html";
+				return;	
+			} else if (data.status === 403) {
+				$("#table-body").html("<h3>Treninzi nisu pronadjeni</h3>");
+			}
+		},
+	    complete: function(data) {
+			
+			let treninzi = data.responseJSON;
+			let tableBody = $("#table-body");
+	        tableBody.html("");
+	        for (let t of treninzi) {
+	            tableBody.append(kreirajRedZaGrupniTrening(t));
+	        }
+			
+	    }
+	});
+}
+
+function kreirajRedZaGrupniTrening(t) {
+	let row = "<tr>";
+	row += "<td>" + t.naziv + "</td>";
+	row += "<td>" + t.tip + "</td>";
+	row += "<td>" + t.trajanje + "</td>";
+	row += "<td>" + t.opis + "</td>";
+	row += "<td>" + t.trener + "</td>";
+	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
+	row += "</tr>";
+	return row;
+}
+
+function getPersonalniTreninziZaTrenera() {
+	$.ajax({
+	    url: "treninzi/trener/personalni/",
+	    type: "GET",
+	    contentType: "application/json",
+	    dataType: "json",
+	    error: function(error) {
+			if (data.status === 403) {
+				alert("Niste ulogovani");
+				window.location.href="/login.html";
+				return;	
+			} else if (data.status === 403) {
+				$("#table-body").html("<h3>Treninzi nisu pronadjeni</h3>");
+			}
+		},
+	    complete: function(data) {
+			
+			let treninzi = data.responseJSON;
+			let tableBody = $("#table-body");
+	        tableBody.html("");
+	        for (let t of treninzi) {
+	            tableBody.append(kreirajRedZaPersonalniTrening(t));
+	        }
+			
+	    }
+	});
+}
+
+function kreirajRedZaPersonalniTrening(t) {
+	let row = "<tr>";
+	row += "<td>" + t.naziv + "</td>";
+	row += "<td>" + t.tip + "</td>";
+	row += "<td>" + t.trajanje + "</td>";
+	row += "<td>" + t.opis + "</td>";
+	row += "<td>" + t.trener + "</td>";
+	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
+	row += "<td><button class='btn btn-danger'>Otkazi trening</button></td>";
+	row += "</tr>";
+	return row;
+}

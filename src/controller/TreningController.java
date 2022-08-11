@@ -107,35 +107,73 @@ public class TreningController {
 			}
 		});
 		
-		get("treninzi/grupni/", (req, res) -> {
+		get("treninzi/trener/grupni/", (req, res) -> {
 			res.type("application/json");
 			res.status(200);
 			
 			Session ss = req.session(true);
 			User trenutniKorisnik = ss.attribute("user");
-			if (trenutniKorisnik != null || !trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+			if (trenutniKorisnik == null || !trenutniKorisnik.getRole().toLowerCase().equals("trener")) {
 				res.status(403);
 				return "Nemate pristup treninzima";
 			}
 			
 			List<Trening> treninzi = treningService.getGrupniTreninziPoTreneru(trenutniKorisnik.getUserName());
-			String json = g.toJson(treninzi, List.class);
+			List<TreningDTO> dtos = new ArrayList<TreningDTO>();
+			for (Trening trening : treninzi) {
+				TreningDTO treningDTO = new TreningDTO();
+				treningDTO.setId(trening.getId());
+				treningDTO.setNaziv(trening.getNaziv());
+				treningDTO.setObjekatId(trening.getObjekatId());
+				treningDTO.setOpis(trening.getOpis());
+				treningDTO.setSlikaURL(trening.getSlika());
+				treningDTO.setTip(trening.getTip().toString());
+				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+				
+				User trener = userService.getPoUsername(trening.getTrenerId());
+				if (trener != null) {
+					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());					
+				}
+				
+				dtos.add(treningDTO);
+			}
+			
+			String json = g.toJson(dtos, List.class);
 			return json;
 		});
 		
-		get("treninzi/personalni/", (req, res) -> {
+		get("treninzi/trener/personalni/", (req, res) -> {
 			res.type("application/json");
 			res.status(200);
 			
 			Session ss = req.session(true);
 			User trenutniKorisnik = ss.attribute("user");
-			if (trenutniKorisnik != null || !trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+			if (trenutniKorisnik == null || !trenutniKorisnik.getRole().toLowerCase().equals("trener")) {
 				res.status(403);
 				return "Nemate pristup treninzima";
 			}
 			
 			List<Trening> treninzi = treningService.getPersonalniTreninziPoTreneru(trenutniKorisnik.getUserName());
-			String json = g.toJson(treninzi, List.class);
+			List<TreningDTO> dtos = new ArrayList<TreningDTO>();
+			for (Trening trening : treninzi) {
+				TreningDTO treningDTO = new TreningDTO();
+				treningDTO.setId(trening.getId());
+				treningDTO.setNaziv(trening.getNaziv());
+				treningDTO.setObjekatId(trening.getObjekatId());
+				treningDTO.setOpis(trening.getOpis());
+				treningDTO.setSlikaURL(trening.getSlika());
+				treningDTO.setTip(trening.getTip().toString());
+				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+				
+				User trener = userService.getPoUsername(trening.getTrenerId());
+				if (trener != null) {
+					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());					
+				}
+				
+				dtos.add(treningDTO);
+			}
+			
+			String json = g.toJson(dtos, List.class);
 			return json;
 		});
 		
