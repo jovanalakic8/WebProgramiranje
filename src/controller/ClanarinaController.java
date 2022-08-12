@@ -82,6 +82,7 @@ public class ClanarinaController {
 				
 				Clanarina clanarina = new Clanarina();
 				clanarina.setId(String.valueOf(System.currentTimeMillis()));
+				clanarina.setTip(clanarinaDTO.getTip());
 				clanarina.setCena(clanarinaDTO.getCena());
 				clanarina.setBrojPreostalihTermina(clanarinaDTO.getBrojTermina());
 				clanarina.setUkupanBrojTermina(clanarinaDTO.getBrojTermina());
@@ -100,6 +101,26 @@ public class ClanarinaController {
 			}
 			
 			return "Kupovina je uspesna";
+		});
+		
+		get("/clanarine/aktivna", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Niste ulogovani";
+			} else if (!trenutniKorisnik.getRole().toLowerCase().equals("kupac")) {
+				res.status(403);
+				return "Niste ulogovani kao kupac";
+			}
+			
+			Clanarina clanarina = service.getAktivnaClanarinaZaKupca(trenutniKorisnik.getUserName());
+
+			String json = g.toJson(clanarina, Clanarina.class);
+			return json;
 		});
 	}
 }

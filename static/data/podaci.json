@@ -105,6 +105,7 @@
   "clanarine": [
     {
       "id": "1659997301957",
+      "tip": "MESECNA",
       "status": "AKTIVNA",
       "vaziDo": "2022-08-19",
       "datumPlacanja": "2022-08-09T00:21:41.957565800",
@@ -112,13 +113,13 @@
       "ukupanBrojTermina": 1,
       "cena": 2000.0,
       "kupac": {
-        "userName": "b",
-        "password": "b",
-        "name": "b",
-        "lastName": "b",
-        "sex": "MUSKI",
+        "userName": "a",
+        "password": "a",
+        "name": "a",
+        "lastName": "a",
+        "sex": "ZENSKI",
         "birthDate": "11-01-2000",
-        "role": "ADMIN"
+        "role": "KUPAC"
       }
     }
   ]

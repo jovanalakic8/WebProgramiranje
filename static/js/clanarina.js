@@ -86,3 +86,34 @@ function potvrdiKupovinu() {
         }
     });
 }
+
+function pronadjiAktivnuClanarinuZaKupca() {
+	$.ajax({
+        url: "/clanarine/aktivna",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+			let tableBody = $("#table-body");
+			
+            let clanarina = data.responseJSON;
+            if (clanarina === null) {
+				let tabela = $("#aktivna-clanarina-tabela");
+				tabela.html("<h5>Nemate aktivnu clanarinu</h5>");
+			} else {
+	            let row = "<tr>";
+				row += "<td>" + clanarina.tip + "</td>";
+				row += "<td>" + clanarina.status + "</td>";
+				row += "<td>" + clanarina.vaziDo + "</td>";
+				row += "<td>" + clanarina.datumPlacanja + "</td>";
+				if (clanarina.ukupanBrojTermina !== null) {
+					row += "<td>" + clanarina.brojPreostalihTermina + "</td>";		
+				} else {
+					row += "<td>neograniceno</td>";
+				}
+				row += "<td>" + clanarina.cena + "</td>";
+				tableBody.html(row);
+			}
+        }
+    });
+}

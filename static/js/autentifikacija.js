@@ -8,7 +8,6 @@ function login() {
 		contentType: "application/json",
 		dataType: "json",
 		complete : function (data) {
-			console.log(data.responseJSON.uloga.toLowerCase())
 		    if (data.responseJSON.uloga.toLowerCase() === "menadzer") {
 				window.location.href = "/menadzer_meni.html"
 				return;
@@ -17,6 +16,9 @@ function login() {
 				return;
 			} else if (data.responseJSON.uloga.toLowerCase() === "trener") {
 				window.location.href = "/trener_meni.html"
+				return;
+			} else if (data.responseJSON.uloga.toLowerCase() === "kupac") {
+				window.location.href = "/kupac_meni.html"
 				return;
 			}
 			    
@@ -77,6 +79,34 @@ function proveraLoginaIUloge(uloga) {
 			} else if (dataJSON.uloga.toLowerCase() !== uloga) {
 				alert("Niste prijavljeni kao " + uloga);
 				window.location.href = "/login.html";
+			}
+		}
+	});
+}
+
+function proveraLoginaIUlogeNaPocetnojStranici() {
+	$.ajax({
+		url: "isLoggedIn",
+		type: "GET",
+		complete: function(data) {
+			let dataJSON = data.responseJSON;
+			
+			if (dataJSON.loggedIn) {
+				$(".logged").show();
+				$(".not-logged").hide();
+				
+				if (dataJSON.uloga.toLowerCase() === "menadzer") {
+					$("#meni-za-menadzere").toggleClass("d-none");
+				} else if (dataJSON.uloga.toLowerCase() === "admin") {
+					$("#meni-za-admine").toggleClass("d-none");
+				} else if (dataJSON.uloga.toLowerCase() === "trener") {
+					$("#meni-za-trenere").toggleClass("d-none");
+				} else if (dataJSON.uloga.toLowerCase() === "kupac") {
+					$("#meni-za-kupce").toggleClass("d-none");
+				}
+			} else {
+				$(".logged").hide();
+				$(".not-logged").show();
 			}
 		}
 	});

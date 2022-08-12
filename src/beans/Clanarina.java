@@ -11,8 +11,8 @@ public class Clanarina {
 	private ClanarinaStatus status;
 	private String vaziDo;
 	private String datumPlacanja;
-	private int brojPreostalihTermina;
-	private int ukupanBrojTermina;
+	private Integer brojPreostalihTermina;
+	private Integer ukupanBrojTermina;
 	private double cena;
 	private User kupac;
 	
@@ -46,16 +46,16 @@ public class Clanarina {
 	public void setDatumPlacanja(String datumPlacanja) {
 		this.datumPlacanja = datumPlacanja;
 	}
-	public int getBrojPreostalihTermina() {
+	public Integer getBrojPreostalihTermina() {
 		return brojPreostalihTermina;
 	}
-	public void setBrojPreostalihTermina(int brojPreostalihTermina) {
+	public void setBrojPreostalihTermina(Integer brojPreostalihTermina) {
 		this.brojPreostalihTermina = brojPreostalihTermina;
 	}
-	public int getUkupanBrojTermina() {
+	public Integer getUkupanBrojTermina() {
 		return ukupanBrojTermina;
 	}
-	public void setUkupanBrojTermina(int ukupanBrojTermina) {
+	public void setUkupanBrojTermina(Integer ukupanBrojTermina) {
 		this.ukupanBrojTermina = ukupanBrojTermina;
 	}
 	public double getCena() {

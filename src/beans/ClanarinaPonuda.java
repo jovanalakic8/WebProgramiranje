@@ -8,8 +8,8 @@ public class ClanarinaPonuda {
 	private String naziv;
 	private ClanarinaTip tip;
 	private long cena;
-	private int brojDanaVazenja;
-	private int brojTermina;
+	private Integer brojDanaVazenja;
+	private Integer brojTermina;
 	
 	public String getId() {
 		return id;
@@ -35,16 +35,16 @@ public class ClanarinaPonuda {
 	public void setCena(long cena) {
 		this.cena = cena;
 	}
-	public int getBrojDanaVazenja() {
+	public Integer getBrojDanaVazenja() {
 		return brojDanaVazenja;
 	}
-	public void setBrojDanaVazenja(int brojDanaVazenja) {
+	public void setBrojDanaVazenja(Integer brojDanaVazenja) {
 		this.brojDanaVazenja = brojDanaVazenja;
 	}
-	public int getBrojTermina() {
+	public Integer getBrojTermina() {
 		return brojTermina;
 	}
-	public void setBrojTermina(int brojTermina) {
+	public void setBrojTermina(Integer brojTermina) {
 		this.brojTermina = brojTermina;
 	}
 	
