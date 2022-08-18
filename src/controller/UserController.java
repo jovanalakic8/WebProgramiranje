@@ -200,9 +200,42 @@ public class UserController {
 		
 		
 		get("/users/treneri", (req, res) -> {
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Not logged in";
+			} else {
+				if (!trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+					res.status(403);
+					return "You are not logged as manager";
+				}
+			}
+			
 			res.type("application/json");
 				
 			String json = g.toJson(userService.sviTreneri(), List.class);
+			return json;
+		});
+		
+		get("/users/kupci", (req, res) -> {
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Not logged in";
+			} else {
+				if (!trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+					res.status(403);
+					return "You are not logged as manager";
+				}
+			}
+			
+			res.type("application/json");
+				
+			String json = g.toJson(userService.sviKupci(), List.class);
 			return json;
 		});
 		

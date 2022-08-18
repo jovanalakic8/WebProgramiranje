@@ -90,6 +90,18 @@ public class UserService {
 		return dtos;
 	}
 	
+	public List<UserWithoutCredentialsDTO> sviKupci() {
+		List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
+		for (User user : DataManager.data.getKorisnici()) {
+			if (user.getRole().toLowerCase().equals("kupac")) {
+				dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
+						user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole()));				
+			}
+		}
+		
+		return dtos;
+	}
+	
 	public String getObjekatZaMenadzera(String menadzerUserName) {
 		for (User user : DataManager.data.getKorisnici()) {
 			if (user.getUserName().equals(menadzerUserName)) {

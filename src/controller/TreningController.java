@@ -64,10 +64,16 @@ public class TreningController {
 				treningDTO.setSlikaURL(trening.getSlika());
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
 					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());					
+				}
+				
+				User kupac = userService.getPoUsername(trening.getKupacId());
+				if (kupac != null) {
+					treningDTO.setKupac(kupac.getName() + " " + kupac.getLastName());					
 				}
 				
 				dtos.add(treningDTO);
@@ -96,10 +102,16 @@ public class TreningController {
 				treningDTO.setSlikaURL(trening.getSlika());
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
 					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());		
+				}
+				
+				User kupac = userService.getPoUsername(trening.getKupacId());
+				if (kupac != null) {
+					treningDTO.setKupac(kupac.getName() + " " + kupac.getLastName());					
 				}
 				
 				String json = g.toJson(trening, Trening.class);
@@ -129,10 +141,16 @@ public class TreningController {
 				treningDTO.setSlikaURL(trening.getSlika());
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
 					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());					
+				}
+				
+				User kupac = userService.getPoUsername(trening.getKupacId());
+				if (kupac != null) {
+					treningDTO.setKupac(kupac.getName() + " " + kupac.getLastName());					
 				}
 				
 				dtos.add(treningDTO);
@@ -164,10 +182,16 @@ public class TreningController {
 				treningDTO.setSlikaURL(trening.getSlika());
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
 					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());					
+				}
+				
+				User kupac = userService.getPoUsername(trening.getKupacId());
+				if (kupac != null) {
+					treningDTO.setKupac(kupac.getName() + " " + kupac.getLastName());					
 				}
 				
 				dtos.add(treningDTO);
@@ -175,6 +199,55 @@ public class TreningController {
 			
 			String json = g.toJson(dtos, List.class);
 			return json;
+		});
+		
+		get("treninzi/kupac/:objekatId", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			String objekatId = req.params("objekatId");
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null || !trenutniKorisnik.getRole().toLowerCase().equals("kupac")) {
+				res.status(403);
+				return "Nemate pristup treninzima";
+			}
+			
+			List<Trening> treninzi = treningService.getTreninziPoObjektu(objekatId);
+			
+			List<TreningDTO> dtos = new ArrayList<TreningDTO>();
+			for (Trening trening : treninzi) {
+				if (trening.getTip() == TreningTipEnum.GRUPNI || 
+						(trening.getTip() == TreningTipEnum.PERSONALNI && trening.getKupacId().equals(trenutniKorisnik.getUserName()))) {
+					TreningDTO treningDTO = new TreningDTO();
+					treningDTO.setId(trening.getId());
+					treningDTO.setNaziv(trening.getNaziv());
+					treningDTO.setObjekatId(trening.getObjekatId());
+					treningDTO.setOpis(trening.getOpis());
+					treningDTO.setSlikaURL(trening.getSlika());
+					treningDTO.setTip(trening.getTip().toString());
+					treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+					treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
+					
+					User trener = userService.getPoUsername(trening.getTrenerId());
+					if (trener != null) {
+						treningDTO.setTrener(trener.getName() + " " + trener.getLastName());					
+					}
+					
+					User kupac = userService.getPoUsername(trening.getKupacId());
+					if (kupac != null) {
+						treningDTO.setKupac(kupac.getName() + " " + kupac.getLastName());					
+					}
+					
+					//TODO filter!
+					dtos.add(treningDTO);
+				}
+			}
+			
+			String json = g.toJson(dtos, List.class);
+			return json;
+			
 		});
 		
 		post("/treninzi", (req, res) -> {
@@ -187,9 +260,11 @@ public class TreningController {
 			String trajanje = req.queryParams("trajanje");
 			String trenerId = req.queryParams("trener");
 			String objekatId = req.queryParams("objekatId");
+			String datumIVremeOdrzavanja = req.queryParams("datumIVremeOdrzavanja");
+			String kupacId = req.queryParams("kupacId");
 			
 			if (naziv.isEmpty() || tip.isEmpty() || opis.isEmpty() ||
-					trajanje.isEmpty() || trenerId.isEmpty() || objekatId.isEmpty()) {
+					trajanje.isEmpty() || trenerId.isEmpty() || objekatId.isEmpty() && datumIVremeOdrzavanja.isEmpty()) {
 				res.status(400);
 				return "Sva polja su obavezna";
 			}
@@ -202,6 +277,15 @@ public class TreningController {
 			} catch (Exception e) {
 				res.status(400);
 				return "Uneti podaci nisu ispravni";
+			}
+			
+			if (tip.equals(TreningTipEnum.PERSONALNI.toString()) && kupacId.isEmpty()) {
+				res.status(400);
+				return "Morate da izaberete kupca za personalni trening";
+			}
+			
+			if (tip.equals(TreningTipEnum.GRUPNI.toString())) {
+				kupacId = null;
 			}
 			
 			String slikaURL = "";
@@ -232,6 +316,8 @@ public class TreningController {
 			noviTrening.setTrenerId(trenerId);
 			noviTrening.setObjekatId(objekatId);
 			noviTrening.setSlika(slikaURL);
+			noviTrening.setDatumIVremeOdrzavanja(datumIVremeOdrzavanja);
+			noviTrening.setKupacId(kupacId);
 			
 			Trening kreiranTrening = treningService.dodajTrening(noviTrening);
 			
@@ -252,9 +338,12 @@ public class TreningController {
 			String trajanje = req.queryParams("trajanje");
 			String trenerId = req.queryParams("trener");
 			String objekatId = req.queryParams("objekatId");
+			String datumIVremeOdrzavanja = req.queryParams("datumIVremeOdrzavanja");
+			String kupacId = req.queryParams("kupacId");
+			
 			
 			if (naziv.isEmpty() || tip.isEmpty() || opis.isEmpty() ||
-					trajanje.isEmpty() || trenerId.isEmpty() || objekatId.isEmpty()) {
+					trajanje.isEmpty() || trenerId.isEmpty() || objekatId.isEmpty() && datumIVremeOdrzavanja.isEmpty()) {
 				res.status(400);
 				return "Sva polja su obavezna";
 			}
@@ -267,6 +356,15 @@ public class TreningController {
 			} catch (Exception e) {
 				res.status(400);
 				return "Uneti podaci nisu ispravni";
+			}
+			
+			if (tip.equals(TreningTipEnum.PERSONALNI.toString()) && kupacId.isEmpty()) {
+				res.status(400);
+				return "Morate da izaberete kupca za personalni trening";
+			}
+			
+			if (tip.equals(TreningTipEnum.GRUPNI.toString())) {
+				kupacId = null;
 			}
 			
 			String slikaURL = "";
@@ -302,6 +400,8 @@ public class TreningController {
 			trening.setTrajanjeUMinutima(trajanjeTreninga);
 			trening.setTrenerId(trenerId);
 			trening.setObjekatId(objekatId);
+			trening.setDatumIVremeOdrzavanja(datumIVremeOdrzavanja);
+			trening.setKupacId(kupacId);
 			
 			if (!slikaURL.isEmpty()) {
 				trening.setSlika(slikaURL);

@@ -12,7 +12,8 @@ public class TreningDTO {
 	private String trener;
 	private String slikaURL;
 	private String objekatId;
-	
+	private String datumIVremeOdrzavanja;
+	private String kupac;
 	
 	public String getId() {
 		return id;
@@ -62,5 +63,18 @@ public class TreningDTO {
 	public void setObjekatId(String objekatId) {
 		this.objekatId = objekatId;
 	}
+	public String getDatumIVremeOdrzavanja() {
+		return datumIVremeOdrzavanja;
+	}
+	public void setDatumIVremeOdrzavanja(String datumIVremeOdrzavanja) {
+		this.datumIVremeOdrzavanja = datumIVremeOdrzavanja;
+	}
+	public String getKupac() {
+		return kupac;
+	}
+	public void setKupac(String kupac) {
+		this.kupac = kupac;
+	}
+	
 	
 }

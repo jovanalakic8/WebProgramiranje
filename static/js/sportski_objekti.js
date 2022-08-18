@@ -287,3 +287,20 @@ function preuzmiPodatkeOSportskomObjektuIzUrl () {
 	$("#objekatId").val(urlVars.objectId);
 }
 
+function ucitajSportskeObjekteUDropdown() {
+	$.ajax({
+        url: "sportski-objekti",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+            let sportskiObjekti = data.responseJSON;
+            let dropdown = $("#sportski-objekti-dropdown");
+            dropdown.html("<option value='0'>Izaberite objekat</option");
+            for (let so of sportskiObjekti) {
+                dropdown.append("<option value='" + so.id + "'>" + so.naziv + "</option>");
+            }
+        }
+    });
+}
+

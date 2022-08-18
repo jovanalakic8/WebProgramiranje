@@ -18,6 +18,7 @@
 			$(document).ready( function() {
 				proveraLoginaIUloge("menadzer");
 				preuzmiTrenere();
+				preuzmiKupce();
 				preuzmiPodatkeOSportskomObjektuIzUrl();
 			});
 		</script>
@@ -73,6 +74,24 @@
 			</td>
 			<td>
 				<select id="select-treneri" name="trener" class="form-control" required>
+					<option></option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="datumIVremeOdrzavanja">Datum i vreme odrzavanja</label> 
+			</td>
+			<td>
+				<input type="datetime-local" class="form-control" id="datumIVremeOdrzavanja" placeholder="20" name="datumIVremeOdrzavanja" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for=select-kupci>Kupac</label> 
+			</td>
+			<td>
+				<select id="select-kupci" name="kupacId" class="form-control" required>
 					<option></option>
 				</select>
 			</td>

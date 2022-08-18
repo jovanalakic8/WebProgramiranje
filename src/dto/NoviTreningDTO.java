@@ -11,6 +11,8 @@ public class NoviTreningDTO {
 	private User trener;
 	private String slikaURL;
 	private String objekatId;
+	private String datumIVremeOdrzavanja;
+	private String kupacId;
 	
 	
 	public String getNaziv() {
@@ -55,5 +57,18 @@ public class NoviTreningDTO {
 	public void setObjekatId(String objekatId) {
 		this.objekatId = objekatId;
 	}
+	public String getDatumIVremeOdrzavanja() {
+		return datumIVremeOdrzavanja;
+	}
+	public void setDatumIVremeOdrzavanja(String datumIVremeOdrzavanja) {
+		this.datumIVremeOdrzavanja = datumIVremeOdrzavanja;
+	}
+	public String getKupacId() {
+		return kupacId;
+	}
+	public void setKupacId(String kupacId) {
+		this.kupacId = kupacId;
+	}
+	
 	
 }

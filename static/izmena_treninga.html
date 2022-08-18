@@ -2,7 +2,7 @@
 <html>
 <head>
 
-<title>Novi trening</title>
+<title>Izmena treninga</title>
         <script src="js/jquery.min.js"></script>
         <script src="js/treninzi.js"></script>
         <script src="js/zajednicke_funkcije.js"></script>
@@ -17,7 +17,8 @@
 			$(document).ready( function() {
 				proveraLoginaIUloge("menadzer");
 				preuzmiTrenere();
-				preuzmiPodatkeOSportskomObjektu();
+				preuzmiKupce();
+				preuzmiPodatkeOTreningu();
 			});
 		</script>
 </head>
@@ -83,6 +84,24 @@
 			</td>
 			<td>
 				<input type="file" class="form-control" id="slika" accept="image/png, image/gif, image/jpeg" name="slika" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="datumIVremeOdrzavanja">Datum i vreme odrzavanja</label> 
+			</td>
+			<td>
+				<input type="datetime-local" class="form-control" id="datumIVremeOdrzavanja" placeholder="20" name="datumIVremeOdrzavanja" required>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for=select-kupci>Kupac</label> 
+			</td>
+			<td>
+				<select id="select-kupci" name="kupacId" class="form-control" required>
+					<option></option>
+				</select>
 			</td>
 		</tr>
 		<tr>

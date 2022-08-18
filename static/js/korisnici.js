@@ -255,3 +255,20 @@ function preuzmiTrenere() {
     });
 }
 
+function preuzmiKupce() {
+	$.ajax({
+        url: "/users/kupci",
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+            const kupci = data.responseJSON;
+            let select = $("#select-kupci");
+            for (let kupac of kupci) {
+                select.append("<option value='" + kupac.userName + "' >" + kupac.name + " " + kupac.lastName + "</option>");
+            }
+ 
+        }
+    });
+}
+

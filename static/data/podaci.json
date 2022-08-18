@@ -79,9 +79,11 @@
       "trenerId": "q",
       "opis": "asde",
       "slika": "/images/1659873145704.jpg",
-      "objekatId": "123-123"
+      "objekatId": "123-123",
+      "datumIVremeOdrzavanja": "2022-08-18T06:34",
+      "kupacId": "a"
     },
-     {
+    {
       "id": "1659876552304",
       "naziv": "asde",
       "tip": "GRUPNI",
@@ -89,7 +91,8 @@
       "trenerId": "q",
       "opis": "asde",
       "slika": "/images/1659873145704.jpg",
-      "objekatId": "123-123"
+      "objekatId": "123-123",
+      "datumIVremeOdrzavanja": ""
     }
   ],
   "ponudaClanarina": [
