@@ -125,5 +125,13 @@
         "role": "KUPAC"
       }
     }
+  ],
+  "istorijaTreninga": [
+    {
+      "id": "1660801647513",
+      "datumIVremePrijave": "2022-08-18T07:47:27.522557200",
+      "kupacId": "a",
+      "treningId": "1659876552303"
+    }
   ]
 }

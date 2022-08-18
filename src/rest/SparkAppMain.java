@@ -7,6 +7,7 @@ import java.io.File;
 import controller.ClanarinaController;
 import controller.SportskiObjekatController;
 import controller.TreningController;
+import controller.TreningIstorijaController;
 import controller.UserController;
 import data.DataManager;
 
@@ -23,6 +24,6 @@ public class SparkAppMain {
 		SportskiObjekatController.endpoints();
 		TreningController.endpoints();
 		ClanarinaController.endpoints();
-		
+		TreningIstorijaController.endpoints();
 	}
 }

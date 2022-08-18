@@ -282,7 +282,8 @@ function kreirajRedZTreningPrilikomPrijaveUObjekat(t) {
 	row += "<td>" + t.opis + "</td>";
 	row += "<td>" + t.trener + "</td>";
 	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
-	row += "<td><button class='btn btn-success'>Izaberi trening</button></td>";
+	row += "<td>" + t.datumIVremeOdrzavanja + "</td>";
+	row += "<td><button class='btn btn-success' onclick='prijaviKupcaUObjekat(" + t.id + ")'>Izaberi trening</button></td>";
 	row += "</tr>";
 	return row;
 }

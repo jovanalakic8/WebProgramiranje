@@ -8,6 +8,7 @@ import beans.Clanarina;
 import beans.ClanarinaPonuda;
 import beans.SportskiObjekat;
 import beans.Trening;
+import beans.TreningIstorija;
 import beans.User;
 
 public class Data {
@@ -17,6 +18,7 @@ public class Data {
 	private List<Trening> treninzi = new ArrayList<Trening>();
 	private List<ClanarinaPonuda> ponudaClanarina = new ArrayList<ClanarinaPonuda>();
 	private List<Clanarina> clanarine = new ArrayList<Clanarina>();
+	private List<TreningIstorija> istorijaTreninga = new ArrayList<TreningIstorija>();
 
 	public Collection<User> getKorisnici() {
 		return korisnici;
@@ -56,6 +58,14 @@ public class Data {
 
 	public void setClanarine(List<Clanarina> clanarine) {
 		this.clanarine = clanarine;
+	}
+
+	public List<TreningIstorija> getIstorijaTreninga() {
+		return istorijaTreninga;
+	}
+
+	public void setIstorijaTreninga(List<TreningIstorija> istorijaTreninga) {
+		this.istorijaTreninga = istorijaTreninga;
 	}
 	
 }

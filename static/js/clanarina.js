@@ -66,7 +66,6 @@ function potvrdiKupovinu() {
 	const ponudaId = getUrlVars().ponudaId;
 	
 	let fromData = getFormData($("#clanarinaForm"));
-	console.log(fromData)
 	fromData.id = ponudaId;
     let json = JSON.stringify(fromData);
     
@@ -81,7 +80,7 @@ function potvrdiKupovinu() {
                 alert(data.responseText);
             else{
                 alert("Uspesna kupovina");
-//                window.location.replace("/");
+                window.location.replace("/kupac_meni.html");
             }
         }
     });
