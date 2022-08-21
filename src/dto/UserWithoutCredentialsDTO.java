@@ -7,12 +7,14 @@ public class UserWithoutCredentialsDTO {
 	private String sex;
 	private String birthDate;
 	private String role;
+	private String type;
+	private int numberOfPoints;
 	
 	public UserWithoutCredentialsDTO() {
 		super();
 	}
 	
-	public UserWithoutCredentialsDTO(String name, String lastName, String userName, String sex, String birthDate, String role) {
+	public UserWithoutCredentialsDTO(String name, String lastName, String userName, String sex, String birthDate, String role, String type, int numberOfPoints) {
 		super();
 		this.name = name;
 		this.lastName = lastName;
@@ -20,6 +22,8 @@ public class UserWithoutCredentialsDTO {
 		this.sex = sex;
 		this.birthDate = birthDate;
 		this.role = role;
+		this.type = type;
+		this.numberOfPoints = numberOfPoints;
 	}
 	
 	public String getName() {
@@ -68,6 +72,22 @@ public class UserWithoutCredentialsDTO {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public int getNumberOfPoints() {
+		return numberOfPoints;
+	}
+
+	public void setNumberOfPoints(int numberOfPoints) {
+		this.numberOfPoints = numberOfPoints;
 	}
 
 }

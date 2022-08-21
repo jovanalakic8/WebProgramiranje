@@ -83,7 +83,13 @@ function kreirajRedZaKorisnika(korisnik) {
 	row += "<td>" + korisnik.role.toLowerCase() + "</td>";
 	row += "<td>" + korisnik.birthDate + "</td>";
 	row += "<td>" + korisnik.sex.toLowerCase() + "</td>";
+	if (korisnik.type !== null) {
+		row += "<td>" + korisnik.type.toLowerCase() + "</td>";
+	} else {
+		row += "<td>/</td>";
+	}
 	
+	row += "<td>" + korisnik.numberOfPoints + "</td>";
 	return row;
 }
 
@@ -123,6 +129,19 @@ function pretragaRegistrovanihKorisnika() {
 		}
 		
 		filtriraniKorisnici = filtriraniKorisniciUloga;
+	}
+	
+	const tipKorisnika = $('input[name="tip-korisnika"]:checked').val();
+	
+	if (tipKorisnika) {
+		let filtriraniKorisniciTip = [];
+		for (let k of filtriraniKorisnici) {
+			if (k.type === tipKorisnika) {
+			    filtriraniKorisniciTip.push(k);			
+			}
+		}
+		
+		filtriraniKorisnici = filtriraniKorisniciTip;
 	}
 	
 	const rastuceSortiranje = $("#rastuce-sortiranje").is(":checked");
@@ -209,6 +228,16 @@ function pretragaRegistrovanihKorisnika() {
 				}
 				
 				return 0;
+			});
+		}
+	} else if (sortiranjePo === "broj-bodova") {
+		if (rastuceSortiranje) {
+			filtriraniKorisnici.sort(function(a, b) {
+				return a.numberOfPoints > b.numberOfPoints ? 1 : -1;
+			});
+		} else {
+			filtriraniKorisnici.sort(function(a, b) {
+				return a.numberOfPoints < b.numberOfPoints ? 1 : -1;
 			});
 		}
 	}

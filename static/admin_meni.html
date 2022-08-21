@@ -96,19 +96,19 @@
 				 		<h5>Tip korisnika</h5>
 				 		
 				 		<div>
-				 			<input type="radio" name="tip-korisnika" value="" checked />
+				 			<input type="radio" name="tip-korisnika" value="" onclick="pretragaRegistrovanihKorisnika()" checked />
 				 			<span>-</span>
 				 		</div>
 				 		<div>
-				 			<input type="radio" name="tip-korisnika" value="ZLATNI" />
+				 			<input type="radio" name="tip-korisnika" value="ZLATNI" onclick="pretragaRegistrovanihKorisnika()" />
 				 			<span>zlatni</span>
 				 		</div>
 				 		<div>
-				 			<input type="radio" name="tip-korisnika" value="SREBRNI" />
+				 			<input type="radio" name="tip-korisnika" value="SREBRNI" onclick="pretragaRegistrovanihKorisnika()" />
 				 			<span>srebrni</span>
 				 		</div>
 				 		<div>
-				 			<input type="radio" name="tip-korisnika" value="BRONZANI" />
+				 			<input type="radio" name="tip-korisnika" value="BRONZANI" onclick="pretragaRegistrovanihKorisnika()" />
 				 			<span>bronzani</span>
 				 		</div>
 				 	</div>
@@ -145,6 +145,8 @@
                     <th>Uloga</th>
                     <th>Datum rodjenja</th>
                     <th>Pol</th>
+                    <th>Tip</th>
+                    <th>Broj bodova</th>
                 </tr>
     		</thead>
     		<tbody id="table-body">

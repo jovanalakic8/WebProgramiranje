@@ -15,7 +15,7 @@ public class UserService {
 		List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
 		for (User user : DataManager.data.getKorisnici()) {
 			dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
-					 user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole()));
+					 user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole(), user.getType().toString(), user.getNumberOfPoints()));
 		}
 		
 		return dtos;
@@ -26,7 +26,7 @@ public class UserService {
 		for (User user : DataManager.data.getKorisnici()) {
 			if (user.getRole().toLowerCase().equals("menadzer") && user.getManagedSportObjectId() == null) {
 				dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
-						 user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole()));
+						 user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole(), user.getType().toString(), user.getNumberOfPoints()));
 			}
 		}
 		
@@ -84,7 +84,7 @@ public class UserService {
 		for (User user : DataManager.data.getKorisnici()) {
 			if (user.getRole().toLowerCase().equals("trener")) {
 				dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
-						user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole()));				
+						user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole(), null, 0));				
 			}
 		}
 		
@@ -96,7 +96,7 @@ public class UserService {
 		for (User user : DataManager.data.getKorisnici()) {
 			if (user.getRole().toLowerCase().equals("kupac")) {
 				dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
-						user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole()));				
+						user.getUserName(), user.getSex(), user.getBirthDate(), user.getRole(), null, 0));				
 			}
 		}
 		
