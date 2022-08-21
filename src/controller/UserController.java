@@ -38,6 +38,7 @@ public class UserController {
 				User korisnik = userService.login(k.getKorisnickoIme(), k.getLozinka());
 				ss.attribute("user", korisnik);
 				res.status(200);
+				
 				String json = g.toJson(korisnik, User.class);
 				JsonParser parser = new JsonParser();
 				JsonElement jsonElement = parser.parse(json);

@@ -20,6 +20,7 @@ import dto.ClanarinaPonudaDTO;
 import dto.NoviTreningIstorijaDTO;
 import dto.TreningDTO;
 import dto.TreningIstorijaDTO;
+import dto.UserWithoutCredentialsDTO;
 import services.ClanarinaService;
 import services.SportskiObjektiService;
 import services.TreningIstorijaService;
@@ -49,7 +50,7 @@ public class TreningIstorijaController {
 				return "Niste ulogovani";
 			} else if (!trenutniKorisnik.getRole().toLowerCase().equals("kupac")) {
 				res.status(403);
-				return "Niste ulogovani kao menadzer";
+				return "Niste ulogovani kao kupac";
 			}
 			
 			List<TreningIstorija> list = service.pronadjiZapiseZaKupcaUPoslednjihMesecDana(trenutniKorisnik.getUserName());
@@ -69,6 +70,95 @@ public class TreningIstorijaController {
 				User user = userService.getPoUsername(trening.getTrenerId());
 				dto.setTrener(user.getName() + " " + user.getLastName());
 				
+				dtos.add(dto);
+			}
+			
+			String json = g.toJson(dtos, List.class);
+			return json;
+		});
+		
+		get("treninzi-istorija/pregled-trenera", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Niste ulogovani";
+			} else if (!trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+				res.status(403);
+				return "Niste ulogovani kao menadzer";
+			}
+			
+			String sportskiObjekatId = trenutniKorisnik.getManagedSportObjectId();
+			List<Trening> treninzi = treningService.getTreninziPoObjektu(sportskiObjekatId);
+			
+			List<String> treneriID = new ArrayList<String>();
+			for (Trening t : treninzi) {
+				if (!treneriID.contains(t.getTrenerId())) {
+					treneriID.add(t.getTrenerId());
+				}
+			}
+			
+			List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
+			for (String trenerId : treneriID) {
+				User trener = userService.getPoUsername(trenerId); 
+				UserWithoutCredentialsDTO dto = new UserWithoutCredentialsDTO();
+				dto.setUserName(trener.getUserName());
+				dto.setName(trener.getName());
+				dto.setLastName(trener.getLastName());
+				dto.setSex(trener.getSex());
+				dto.setBirthDate(trener.getBirthDate());
+				dto.setRole(trener.getRole());
+				dtos.add(dto);
+			}
+			
+			String json = g.toJson(dtos, List.class);
+			return json;
+		});
+		
+		get("treninzi-istorija/pregled-kupaca", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Niste ulogovani";
+			} else if (!trenutniKorisnik.getRole().toLowerCase().equals("menadzer")) {
+				res.status(403);
+				return "Niste ulogovani kao menadzer";
+			}
+			
+			String sportskiObjekatId = trenutniKorisnik.getManagedSportObjectId();
+			List<Trening> treninzi = treningService.getTreninziPoObjektu(sportskiObjekatId);
+			
+			List<String> treninziID = new ArrayList<String>();
+			for (Trening t : treninzi) {	
+				treninziID.add(t.getId());
+			}
+			
+			List<TreningIstorija> istorija = service.pronadjiZapiseProsledjeneTreninge(treninziID);
+			
+			List<String> kupciID = new ArrayList<String>();
+			for (TreningIstorija ti : istorija) {
+				if (!kupciID.contains(ti.getKupacId())) {
+					kupciID.add(ti.getKupacId());
+				}
+			}
+			
+			List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
+			for (String kupacId : kupciID) {
+				User trener = userService.getPoUsername(kupacId); 
+				UserWithoutCredentialsDTO dto = new UserWithoutCredentialsDTO();
+				dto.setUserName(trener.getUserName());
+				dto.setName(trener.getName());
+				dto.setLastName(trener.getLastName());
+				dto.setSex(trener.getSex());
+				dto.setBirthDate(trener.getBirthDate());
+				dto.setRole(trener.getRole());
 				dtos.add(dto);
 			}
 			

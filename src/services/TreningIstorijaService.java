@@ -37,4 +37,18 @@ public class TreningIstorijaService {
 		return list;
 	}
 	
+	public List<TreningIstorija> pronadjiZapiseProsledjeneTreninge(List<String> treninziID) {
+		List<TreningIstorija> istorija = new ArrayList<TreningIstorija>();
+		
+		for (TreningIstorija ti : DataManager.data.getIstorijaTreninga()) {
+			for (String treningId : treninziID) {
+				if (ti.getTreningId().equals(treningId)) {
+					istorija.add(ti);
+				}
+			}
+		}
+		
+		return istorija;
+	}
+	
 }

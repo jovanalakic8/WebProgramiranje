@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pregled kupaca</title>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/korisnici.js"></script>
+    <script src="js/zajednicke_funkcije.js"></script>
+    <script src="js/autentifikacija.js"></script>
+    <script src="js/istorija_treninga.js"></script>
+    
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    
+    <script>
+		$(document).ready( function() {
+			proveraLoginaIUloge("menadzer");
+			ucitajKupceKojiSuBiliUMenadzerovomObjektu();
+		});
+	</script>
+    
+</head>
+<body>
+    
+    <nav class="navbar navbar-dark bg-primary navbar-expand">
+	  <ul class="navbar-nav">
+      <li class="nav-item">
+      	<a class="nav-link" href="/">Pocetna</a>
+      </li>
+      
+      <li class="nav-item logged">
+          <a class="nav-link" href="/admin_meni.html">Menadzer meni</a>
+      </li>
+      
+      <li class="nav-item logged">
+          <a class="nav-link" href="/my_profile.html">Moj profil</a>
+      </li>
+      
+      <li class="nav-item logged active">
+          <a class="nav-link" href="/pregled_kupaca.html">Pregled kupaca</a>
+      </li>
+      
+      <li class="nav-item logged ">
+          <a class="nav-link" href="/pregled_trenera.html">Pregled trenera</a>
+      </li>
+      
+      <li class="nav-item logged">
+          <button class="btn nav-link" onclick="logout()">Odjava</button>
+      </li>
+      
+      </ul>
+	</nav>
+	
+    <main>
+    	<h1 class="text-center mt-3 mb-3" >Pregled kupaca koji su bili u objektu</h1>
+    	
+    	<table id="users-table" class="w-75 ml-auto mr-auto">
+    		<thead>
+    			<tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Korisnicko ime</th>
+                    <th>Uloga</th>
+                    <th>Datum rodjenja</th>
+                    <th>Pol</th>
+                </tr>
+    		</thead>
+    		<tbody id="table-body">
+    		
+    		</tbody>
+    	</table>
+    </main>
+</body>
+</html>

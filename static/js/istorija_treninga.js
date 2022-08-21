@@ -53,3 +53,64 @@ function kreirajRedZaIstorijuTreningaKupca(t) {
 	row += "<td>" + t.objekat + "</td>";
 	return row;
 }
+
+function ucitajTrenereKojiSuBiliUMenadzerovomObjektu() {
+	$.ajax({
+	    url: "treninzi-istorija/pregled-trenera",
+	    type: "GET",
+	    contentType: "application/json",
+	    dataType: "json",
+	    complete: function(response) {
+			if (response.status === 403) {
+				alert("Niste ulogovani");
+				return;
+			}
+			
+			let treneri = response.responseJSON;
+			
+			let tableBody = $("#table-body");
+            tableBody.html("");
+            for (let trener of treneri) {
+                tableBody.append(kreirajRedZaTrenera(trener));
+            }
+			
+	    }
+	});
+}
+
+
+function kreirajRedZaTrenera(trener) {
+	let row = "<tr>";
+	row += "<td>" + trener.name + "</td>";
+	row += "<td>" + trener.lastName + "</td>";
+	row += "<td>" + trener.userName + "</td>";
+	row += "<td>" + trener.role.toLowerCase() + "</td>";
+	row += "<td>" + trener.birthDate + "</td>";
+	row += "<td>" + trener.sex.toLowerCase() + "</td>";
+	
+	return row;
+}
+
+function ucitajKupceKojiSuBiliUMenadzerovomObjektu() {
+	$.ajax({
+	    url: "treninzi-istorija/pregled-kupaca",
+	    type: "GET",
+	    contentType: "application/json",
+	    dataType: "json",
+	    complete: function(response) {
+			if (response.status === 403) {
+				alert("Niste ulogovani");
+				return;
+			}
+			
+			let kupci = response.responseJSON;
+			
+			let tableBody = $("#table-body");
+            tableBody.html("");
+            for (let kupac of kupci) {
+                tableBody.append(kreirajRedZaTrenera(kupac));
+            }
+			
+	    }
+	});
+}
