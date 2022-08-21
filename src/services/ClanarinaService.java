@@ -36,4 +36,30 @@ public class ClanarinaService {
 		DataManager.saveData();
 	}
 	
+	public void umanjiBrojDostupnihTerminaZaClanarinu(Clanarina clanarina) {
+		for (Clanarina c: DataManager.data.getClanarine()) {
+			if (c.getId().equals(clanarina.getId())) {
+				c.setBrojPreostalihTermina(c.getBrojPreostalihTermina() - 1);
+			}
+		}
+		
+		DataManager.saveData();
+	}
+
+	public int deaktivirajPostojecuClanarin(Clanarina clanarina) {
+		for (Clanarina c: DataManager.data.getClanarine()) {
+			if (c.getId().equals(clanarina.getId())) {
+				c.setStatus(ClanarinaStatus.NEAKTIVNA);
+				
+				if (c.getBrojPreostalihTermina() != 0 && c.getBrojPreostalihTermina() > c.getUkupanBrojTermina() / 3) {
+					return (int) Math.floor(c.getCena() / 1000 * (c.getUkupanBrojTermina() - c.getBrojPreostalihTermina()));
+				} else {
+					return (int) - Math.floor(c.getCena() / 1000 * 133 * 4);
+				}
+			}
+		}
+		
+		return 0;
+	}
+	
 }

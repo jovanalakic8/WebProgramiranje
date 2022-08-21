@@ -7,6 +7,7 @@ import beans.User;
 import data.DataManager;
 import dto.RegistracijaDTO;
 import dto.UserWithoutCredentialsDTO;
+import utils.UserType;
 
 public class UserService {
 	
@@ -120,5 +121,27 @@ public class UserService {
 		}
 		
 		return null;
+	}
+
+	public void azurirajTipKorisnika(User user, int brojBodova) {
+		for (User u : DataManager.data.getKorisnici()) {
+			if (u.getUserName().equals(user.getUserName())) {
+				int noviBrojBodova = u.getNumberOfPoints() + brojBodova;
+				if (noviBrojBodova < 0) {
+					noviBrojBodova = 0;
+				}
+				
+				u.setNumberOfPoints(noviBrojBodova);
+				if (noviBrojBodova < 100) {
+					u.setType(UserType.BRONZANI);
+				} else if (noviBrojBodova < 200) {
+					u.setType(UserType.SREBRNI);
+				} else {
+					u.setType(UserType.ZLATNI);
+				}
+			}
+		}
+		
+		DataManager.saveData();
 	}
 }

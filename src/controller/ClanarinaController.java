@@ -15,6 +15,7 @@ import beans.ClanarinaPonuda;
 import beans.User;
 import dto.ClanarinaPonudaDTO;
 import services.ClanarinaService;
+import services.UserService;
 import spark.Session;
 import utils.ClanarinaStatus;
 
@@ -22,6 +23,7 @@ public class ClanarinaController {
 	
 	private static Gson g = new GsonBuilder().setPrettyPrinting().create();
 	private static ClanarinaService service = new ClanarinaService();
+	private static UserService userService = new UserService();
 	
 	public static void endpoints() {
 		
@@ -91,9 +93,16 @@ public class ClanarinaController {
 				clanarina.setStatus(ClanarinaStatus.AKTIVNA);
 				clanarina.setVaziDo(clanarinaDTO.getVaziDo());
 				
-				//TODO: deaktiviraj staru clanarinu
+				Clanarina aktivnaClanarina = service.getAktivnaClanarinaZaKupca(user.getUserName());
+				
+				int brojBodova = 0;
+				if (aktivnaClanarina != null) {
+					brojBodova = service.deaktivirajPostojecuClanarin(clanarina);
+				}
+				
 				service.sacuvajNovuClanarinu(clanarina);
-				//TODO: dodaj kupcu bodove
+				
+				userService.azurirajTipKorisnika(user, brojBodova);
 			} catch (Exception e) {
 				e.printStackTrace();
 				res.status(400);

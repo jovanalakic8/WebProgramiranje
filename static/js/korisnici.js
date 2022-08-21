@@ -230,10 +230,16 @@ function pronadjiMenadzereBezObekta() {
         complete: function(data) {
             menadzeriBezObjekta = data.responseJSON;
             let select = $("#select-menadzeri");
-            for (let men of menadzeriBezObjekta) {
-                select.append("<option value='" + men.userName + "' >" + men.name + " " + men.lastName + "</option>");
-            }
- 
+            let link = $("#menadzeri-registracija");
+            
+            if (menadzeriBezObjekta.length === 0) {
+				select.hide();
+			} else {
+				link.hide();
+	            for (let men of menadzeriBezObjekta) {
+	                select.append("<option value='" + men.userName + "' >" + men.name + " " + men.lastName + "</option>");
+	            }
+			}
         }
     });
 }

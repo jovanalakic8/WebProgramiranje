@@ -35,7 +35,8 @@ public class TreningIstorijaController {
 	private static TreningIstorijaService service = new TreningIstorijaService();
 	private static TreningService treningService = new TreningService();
 	private static SportskiObjektiService sportskiObjektiService = new SportskiObjektiService();
-	private static UserService userService = new UserService();	
+	private static UserService userService = new UserService();
+	private static ClanarinaService clanarinaService = new ClanarinaService();
 	
 	public static void endpoints() {
 		
@@ -194,6 +195,15 @@ public class TreningIstorijaController {
 					return "Vec ste se prijavili za izabrani trening";
 				}
 				
+				Clanarina clanarina = clanarinaService.getAktivnaClanarinaZaKupca(user.getUserName());
+				if (clanarina == null) {
+					res.status(400);
+					return "Nemate uplacenu clanarinu";
+				} else if (clanarina.getBrojPreostalihTermina() == 0) {
+					res.status(400);
+					return "Iskoristili ste sve termine";
+				}
+				
 				res.status(200);
 				
 				TreningIstorija treningIstorija = new TreningIstorija();
@@ -203,6 +213,7 @@ public class TreningIstorijaController {
 				treningIstorija.setTreningId(dto.getTreningId());
 				
 				service.sacuvajNovi(treningIstorija);
+				clanarinaService.umanjiBrojDostupnihTerminaZaClanarinu(clanarina);
 			} catch (Exception e) {
 				res.status(400);
 				return "Neispravni podaci";

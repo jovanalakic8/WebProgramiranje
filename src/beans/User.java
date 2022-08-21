@@ -2,6 +2,8 @@ package beans;
 
 import java.time.LocalDateTime;
 
+import utils.UserType;
+
 public class User {
 
 	private String userName;
@@ -12,6 +14,8 @@ public class User {
 	private String birthDate;
 	private String role;
 	private String managedSportObjectId;
+	private int numberOfPoints;
+	private UserType type;
 	
 	private User() {
 		
@@ -27,6 +31,8 @@ public class User {
 		this.birthDate = birthDate;
 		this.role = role;
 		this.managedSportObjectId = null;
+		this.type = UserType.BRONZANI;
+		this.numberOfPoints = 0;
 	}
 	
 	public String getUserName() {
@@ -78,6 +84,22 @@ public class User {
 
 	public void setManagedSportObject(String managedSportObjectId) {
 		this.managedSportObjectId = managedSportObjectId;
+	}
+
+	public int getNumberOfPoints() {
+		return numberOfPoints;
+	}
+
+	public void setNumberOfPoints(int numberOfPoints) {
+		this.numberOfPoints = numberOfPoints;
+	}
+
+	public UserType getType() {
+		return type;
+	}
+
+	public void setType(UserType type) {
+		this.type = type;
 	}
 	
 }
