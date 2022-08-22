@@ -18,6 +18,7 @@ import services.ClanarinaService;
 import services.UserService;
 import spark.Session;
 import utils.ClanarinaStatus;
+import utils.UserType;
 
 public class ClanarinaController {
 	
@@ -28,10 +29,27 @@ public class ClanarinaController {
 	public static void endpoints() {
 		
 		get("/clanarine/ponuda", (req, res) -> {
+			
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if (user == null || !user.getRole().toLowerCase().equals("kupac")) {
+				res.status(403);
+				return "Pristup nije dozvoljen";
+			}
+			
 			res.type("application/json");
 			res.status(200);
 			
 			List<ClanarinaPonuda> clanarine = service.getPonudaClanarina();
+			for (ClanarinaPonuda c : clanarine) {
+				if (user.getType().equals(UserType.ZLATNI)) {
+					c.setCena((int)Math.floor(c.getCena() * 0.7));				
+				} else if (user.getType().equals(UserType.SREBRNI)) {
+					c.setCena((int)Math.floor(c.getCena() * 0.85));
+				} else {
+					c.setCena(c.getCena());
+				}
+			}
 			String json = g.toJson(clanarine, List.class);
 			return json;
 		});
@@ -39,6 +57,13 @@ public class ClanarinaController {
 		get("/clanarine/ponuda/:id", (req, res) -> {
 			res.type("application/json");
 			res.status(200);
+			
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if (user == null || !user.getRole().toLowerCase().equals("kupac")) {
+				res.status(403);
+				return "Pristup nije dozvoljen";
+			}
 			
 			String ponudaId = req.params("id");
 			
@@ -51,11 +76,18 @@ public class ClanarinaController {
 			
 			ClanarinaPonudaDTO dto = new ClanarinaPonudaDTO();
 			dto.setId(ponudaId);
-			dto.setCena(clanarina.getCena());
 			dto.setBrojTermina(clanarina.getBrojTermina());
 			dto.setNaziv(clanarina.getNaziv());
 			dto.setTip(clanarina.getTip());
 			dto.setVaziDo(LocalDateTime.now().plusDays(clanarina.getBrojDanaVazenja()).toLocalDate().toString());
+			
+			if (user.getType().equals(UserType.ZLATNI)) {
+				dto.setCena((int)Math.floor(clanarina.getCena() * 0.7));				
+			} else if (user.getType().equals(UserType.SREBRNI)) {
+				dto.setCena((int)Math.floor(clanarina.getCena() * 0.85));
+			} else {
+				dto.setCena(clanarina.getCena());
+			}
 			
 			String json = g.toJson(dto, ClanarinaPonudaDTO.class);
 			return json;
