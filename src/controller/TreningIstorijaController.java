@@ -200,8 +200,17 @@ public class TreningIstorijaController {
 					res.status(400);
 					return "Nemate uplacenu clanarinu";
 				} else if (clanarina.getBrojPreostalihTermina() == 0) {
+					int brojBodova = clanarinaService.deaktivirajPostojecuClanarinu(clanarina);
+					userService.azurirajTipKorisnika(user, brojBodova);
+					
 					res.status(400);
 					return "Iskoristili ste sve termine";
+				} else if (LocalDateTime.parse(clanarina.getVaziDo()).isBefore(LocalDateTime.now())) {
+					int brojBodova = clanarinaService.deaktivirajPostojecuClanarinu(clanarina);
+					userService.azurirajTipKorisnika(user, brojBodova);
+					
+					res.status(400);
+					return "Clanarina Vam je istekla";
 				}
 				
 				res.status(200);

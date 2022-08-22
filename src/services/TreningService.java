@@ -78,4 +78,15 @@ public class TreningService {
 		DataManager.saveData();
 	}
 	
+	public void otkaziTrening(String treningId) {
+		for (Trening tr : getSviTreninzi()) {
+			if (tr.getId().equals(treningId)) {
+				tr.setOtkazan(true);
+				break;
+			}
+		}
+		
+		DataManager.saveData();
+	}
+	
 }

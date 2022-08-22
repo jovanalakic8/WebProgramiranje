@@ -8,8 +8,8 @@
       "sex": "MUSKI",
       "birthDate": "22-02-2002",
       "role": "TRENER",
-      "type": "BRONZANI",
-      "numberOfPoints": 2
+      "numberOfPoints": 2,
+      "type": "BRONZANI"
     },
     {
       "userName": "z",
@@ -20,8 +20,8 @@
       "birthDate": "22-02-2002",
       "role": "MENADZER",
       "managedSportObjectId": "123-123",
-      "type": "BRONZANI",
-      "numberOfPoints": 3
+      "numberOfPoints": 3,
+      "type": "BRONZANI"
     },
     {
       "userName": "a",
@@ -31,8 +31,8 @@
       "sex": "ZENSKI",
       "birthDate": "11-01-2000",
       "role": "KUPAC",
-      "type": "BRONZANI",
-      "numberOfPoints": 0
+      "numberOfPoints": 0,
+      "type": "BRONZANI"
     },
     {
       "userName": "b",
@@ -42,8 +42,8 @@
       "sex": "MUSKI",
       "birthDate": "11-01-2000",
       "role": "ADMIN",
-      "type": "BRONZANI",
-      "numberOfPoints": 0
+      "numberOfPoints": 0,
+      "type": "BRONZANI"
     }
   ],
   "sportskiObjekti": [
@@ -60,9 +60,7 @@
       },
       "logo": "/images/avatar.png",
       "prosecnaOcena": 4.2,
-      "radnoVreme": "11-14",
-      "type": "BRONZANI",
-      "numberOfPoints": 0
+      "radnoVreme": "11-14"
     },
     {
       "id": "54645",
@@ -77,9 +75,7 @@
       },
       "logo": "/images/avatar.png",
       "prosecnaOcena": 1.3,
-      "radnoVreme": "09-12",
-      "type": "BRONZANI",
-      "numberOfPoints": 0
+      "radnoVreme": "09-12"
     }
   ],
   "treninzi": [
@@ -92,10 +88,9 @@
       "opis": "asde",
       "slika": "/images/1659873145704.jpg",
       "objekatId": "123-123",
-      "datumIVremeOdrzavanja": "2022-08-18T06:34",
+      "datumIVremeOdrzavanja": "2022-08-25T06:34",
       "kupacId": "a",
-      "type": "BRONZANI",
-      "numberOfPoints": 0
+      "otkazan": false
     },
     {
       "id": "1659876552304",
@@ -107,8 +102,7 @@
       "slika": "/images/1659873145704.jpg",
       "objekatId": "123-123",
       "datumIVremeOdrzavanja": "",
-      "type": "BRONZANI",
-      "numberOfPoints": 0
+      "otkazan": false
     }
   ],
   "ponudaClanarina": [
@@ -138,7 +132,8 @@
         "lastName": "a",
         "sex": "ZENSKI",
         "birthDate": "11-01-2000",
-        "role": "KUPAC"
+        "role": "KUPAC",
+        "numberOfPoints": 0
       }
     }
   ],

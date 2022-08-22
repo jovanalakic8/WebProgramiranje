@@ -65,6 +65,49 @@ public class TreningController {
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
+				treningDTO.setOtkazan(trening.isOtkazan());
+				
+				User trener = userService.getPoUsername(trening.getTrenerId());
+				if (trener != null) {
+					treningDTO.setTrener(trener.getName() + " " + trener.getLastName());					
+				}
+				
+				User kupac = userService.getPoUsername(trening.getKupacId());
+				if (kupac != null) {
+					treningDTO.setKupac(kupac.getName() + " " + kupac.getLastName());					
+				}
+				
+				dtos.add(treningDTO);
+			}
+			
+			String json = g.toJson(dtos, List.class);
+			return json;
+		});
+		
+		get("treninzi/objekat/:id", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			String objekatId = req.params("id");
+			if (objekatId == null) {
+				res.type("application/json");
+				res.status(404);
+				return "Menadzer nema objekat kojim upravlja";
+			}
+			
+			List<Trening> treninzi = treningService.getTreninziPoObjektu(objekatId);
+			List<TreningDTO> dtos = new ArrayList<TreningDTO>();
+			for (Trening trening : treninzi) {
+				TreningDTO treningDTO = new TreningDTO();
+				treningDTO.setId(trening.getId());
+				treningDTO.setNaziv(trening.getNaziv());
+				treningDTO.setObjekatId(trening.getObjekatId());
+				treningDTO.setOpis(trening.getOpis());
+				treningDTO.setSlikaURL(trening.getSlika());
+				treningDTO.setTip(trening.getTip().toString());
+				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
+				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
+				treningDTO.setOtkazan(trening.isOtkazan());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -103,6 +146,7 @@ public class TreningController {
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
+				treningDTO.setOtkazan(trening.isOtkazan());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -142,6 +186,7 @@ public class TreningController {
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
+				treningDTO.setOtkazan(trening.isOtkazan());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -174,6 +219,10 @@ public class TreningController {
 			List<Trening> treninzi = treningService.getPersonalniTreninziPoTreneru(trenutniKorisnik.getUserName());
 			List<TreningDTO> dtos = new ArrayList<TreningDTO>();
 			for (Trening trening : treninzi) {
+				if (trening.isOtkazan()) {
+					continue;
+				}
+				
 				TreningDTO treningDTO = new TreningDTO();
 				treningDTO.setId(trening.getId());
 				treningDTO.setNaziv(trening.getNaziv());
@@ -183,6 +232,7 @@ public class TreningController {
 				treningDTO.setTip(trening.getTip().toString());
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
+				treningDTO.setOtkazan(trening.isOtkazan());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -229,6 +279,7 @@ public class TreningController {
 					treningDTO.setTip(trening.getTip().toString());
 					treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 					treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
+					treningDTO.setOtkazan(trening.isOtkazan());
 					
 					User trener = userService.getPoUsername(trening.getTrenerId());
 					if (trener != null) {
@@ -323,6 +374,25 @@ public class TreningController {
 			
 			res.status(200);
 			return g.toJson(kreiranTrening);
+
+		});
+		
+		put("/treninzi/otkazi/:id", (req, res) -> {
+			res.type("application/json");
+			
+			String treningId = req.params("id");
+			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null || !trenutniKorisnik.getRole().toLowerCase().equals("trener")) {
+				res.status(403);
+				return "Nemate pristup treninzima";
+			}
+						
+			treningService.otkaziTrening(treningId);
+			
+			res.status(200);
+			return res;
 
 		});
 		

@@ -46,7 +46,7 @@ public class ClanarinaService {
 		DataManager.saveData();
 	}
 
-	public int deaktivirajPostojecuClanarin(Clanarina clanarina) {
+	public int deaktivirajPostojecuClanarinu(Clanarina clanarina) {
 		for (Clanarina c: DataManager.data.getClanarine()) {
 			if (c.getId().equals(clanarina.getId())) {
 				c.setStatus(ClanarinaStatus.NEAKTIVNA);

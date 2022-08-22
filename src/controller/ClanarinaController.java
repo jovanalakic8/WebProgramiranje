@@ -97,7 +97,7 @@ public class ClanarinaController {
 				
 				int brojBodova = 0;
 				if (aktivnaClanarina != null) {
-					brojBodova = service.deaktivirajPostojecuClanarin(clanarina);
+					brojBodova = service.deaktivirajPostojecuClanarinu(clanarina);
 				}
 				
 				service.sacuvajNovuClanarinu(clanarina);

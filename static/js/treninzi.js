@@ -133,7 +133,13 @@ function kreirajRedZaTrening(t) {
 	row += "<td>" + t.opis + "</td>";
 	row += "<td>" + t.trener + "</td>";
 	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
-	row += "<td>" + t.datumIVremeOdrzazvanja + "</td>";
+	row += "<td>" + t.datumIVremeOdrzavanja + "</td>";
+	if (t.otkazan) {
+		row += "<td>Otkazan</td>";		
+	} else {
+		row += "<td>Aktivan</td>";
+	}
+	
 	if (t.kupac) {
 		row += "<td>" + t.kupac + "</td>";		
 	} else {
@@ -231,8 +237,14 @@ function kreirajRedZaPersonalniTrening(t) {
 	} else {
 		row += "<td>/</td>";
 	}
-	
-	row += "<td><button class='btn btn-danger'>Otkazi trening</button></td>";
+
+	let inTwoDays = new Date();
+	inTwoDays.setDate(inTwoDays.getDate() + 2);
+	if (Date.parse(t.datumIVremeOdrzavanja) < inTwoDays) {
+		row += "<td></td>";
+	} else {		
+		row += "<td><button class='btn btn-danger' onclick='otkaziTrening(" + t.id + ")'>Otkazi trening</button></td>";
+	}
 	row += "</tr>";
 	return row;
 }
@@ -284,6 +296,69 @@ function kreirajRedZTreningPrilikomPrijaveUObjekat(t) {
 	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
 	row += "<td>" + t.datumIVremeOdrzavanja + "</td>";
 	row += "<td><button class='btn btn-success' onclick='prijaviKupcaUObjekat(" + t.id + ")'>Izaberi trening</button></td>";
+	row += "</tr>";
+	return row;
+}
+
+function otkaziTrening(treningId) {
+	$.ajax({
+	    url: "treninzi/otkazi/" + treningId,
+	    type: "PUT",
+	    contentType: "application/json",
+	    dataType: "json",
+	    error: function(error) {
+			if (data.status === 403) {
+				alert("Niste ulogovani");
+				return;	
+			}
+		},
+	    complete: function(data) {
+			alert("Trening je uspesno otkazan");
+			window.location.reload();
+	    }
+	});
+}
+
+function preuzimanjePodatakaZaRasporedTreningaUSportskomObjektu() {
+	const objekatId = getUrlVars().objekatId;
+	$.ajax({
+        url: "/treninzi/objekat/" + objekatId,
+        type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+            let treninzi = data.responseJSON;
+			let tableBody = $("#table-body");
+            tableBody.html("");
+            for (let t of treninzi) {
+                tableBody.append(kreirajRedZaTreningBezDugmeta(t));
+            }
+        }
+    });
+	
+}
+
+function kreirajRedZaTreningBezDugmeta(t) {
+	let row = "<tr>";
+	row += "<td>" + t.naziv + "</td>";
+	row += "<td>" + t.tip + "</td>";
+	row += "<td>" + t.trajanje + "</td>";
+	row += "<td>" + t.opis + "</td>";
+	row += "<td>" + t.trener + "</td>";
+	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
+	row += "<td>" + t.datumIVremeOdrzavanja + "</td>";
+	if (t.otkazan) {
+		row += "<td>Otkazan</td>";		
+	} else {
+		row += "<td>Aktivan</td>";
+	}
+	
+	if (t.kupac) {
+		row += "<td>" + t.kupac + "</td>";		
+	} else {
+		row += "<td>/</td>";
+	}
+	
 	row += "</tr>";
 	return row;
 }

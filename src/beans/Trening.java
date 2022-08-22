@@ -14,6 +14,7 @@ public class Trening {
 	private String objekatId;
 	private String datumIVremeOdrzavanja;
 	private String kupacId;
+	private boolean otkazan; 
 	
 	public String getId() {
 		return id;
@@ -75,6 +76,11 @@ public class Trening {
 	public void setKupacId(String kupacId) {
 		this.kupacId = kupacId;
 	}
-	
+	public boolean isOtkazan() {
+		return otkazan;
+	}
+	public void setOtkazan(boolean otkazan) {
+		this.otkazan = otkazan;
+	}
 	
 }
