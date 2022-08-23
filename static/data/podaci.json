@@ -90,7 +90,8 @@
       "objekatId": "123-123",
       "datumIVremeOdrzavanja": "2022-08-25T06:34",
       "kupacId": "a",
-      "otkazan": false
+      "otkazan": false,
+      "cena": 3
     },
     {
       "id": "1659876552304",
@@ -102,7 +103,8 @@
       "slika": "/images/1659873145704.jpg",
       "objekatId": "123-123",
       "datumIVremeOdrzavanja": "",
-      "otkazan": false
+      "otkazan": false,
+      "cena": 0
     }
   ],
   "ponudaClanarina": [

@@ -28,6 +28,7 @@ function preuzmiPodatkeOTreningu () {
             $("#objekatId").val(trening.objekatId);
             $("#datumIVremeOdrzavanja").val(trening.datumIVremeOdrzavanja);
             $("#select-kupci").val(trening.kupacId);
+            $("#cena").val(trening.cena);
             
             if (trening.tip.toLowerCase() === "grupni") {
 				$("#radio_tip_grupni").attr("checked", "checked");
@@ -150,6 +151,7 @@ function kreirajRedZaTrening(t) {
 	return row;
 }
 
+var treninzi = [];
 function getGrupniTreninziZaTrenera() {
 	$.ajax({
 	    url: "treninzi/trener/grupni/",
@@ -167,7 +169,7 @@ function getGrupniTreninziZaTrenera() {
 		},
 	    complete: function(data) {
 			
-			let treninzi = data.responseJSON;
+			treninzi = data.responseJSON;
 			let tableBody = $("#table-body");
 	        tableBody.html("");
 	        for (let t of treninzi) {
@@ -185,12 +187,14 @@ function kreirajRedZaGrupniTrening(t) {
 	row += "<td>" + t.trajanje + "</td>";
 	row += "<td>" + t.opis + "</td>";
 	row += "<td>" + t.trener + "</td>";
+	row += "<td>" + t.cena + "</td>";
 	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
 	if (t.kupac) {
 		row += "<td>" + t.kupac + "</td>";		
 	} else {
 		row += "<td>/</td>";
 	}
+	row += "<td>" + t.objekatId + "</td>";
 	row += "</tr>";
 	return row;
 }
@@ -212,7 +216,7 @@ function getPersonalniTreninziZaTrenera() {
 		},
 	    complete: function(data) {
 			
-			let treninzi = data.responseJSON;
+			treninzi = data.responseJSON;
 			let tableBody = $("#table-body");
 	        tableBody.html("");
 	        for (let t of treninzi) {
@@ -228,15 +232,17 @@ function kreirajRedZaPersonalniTrening(t) {
 	row += "<td>" + t.naziv + "</td>";
 	row += "<td>" + t.tip + "</td>";
 	row += "<td>" + t.trajanje + "</td>";
-	row += "<td>" + t.opis + "</td>";
 	row += "<td>" + t.trener + "</td>";
+	row += "<td>" + t.opis + "</td>";
 	row += "<td><img width=50 height=50 src='" + t.slikaURL + "'</td>";
+	row += "<td>" + t.cena + "</td>";
 	row += "<td>" + t.datumIVremeOdrzavanja + "</td>";
 	if (t.kupac) {
 		row += "<td>" + t.kupac + "</td>";		
 	} else {
 		row += "<td>/</td>";
 	}
+	row += "<td>" + t.objekatId + "</td>";
 
 	let inTwoDays = new Date();
 	inTwoDays.setDate(inTwoDays.getDate() + 2);
@@ -361,4 +367,156 @@ function kreirajRedZaTreningBezDugmeta(t) {
 	
 	row += "</tr>";
 	return row;
+}
+
+function pretragaTreninga(tipTreninga) {
+	let kriterijum = $("#kriterijum").val();
+	let tekst = $("#pretraga").val();
+	
+	let filtriraniTreninzi = [];
+	if (kriterijum === "objekat") {
+		for (let t of treninzi) {
+			if (t.objekatId.toLowerCase().includes(tekst.toLowerCase())) {
+				filtriraniTreninzi.push(t);
+			}
+		}
+	} else if (kriterijum === "cena") {
+		let error = false;
+		const podeljenString = tekst.split('-');
+		if (podeljenString.length !== 2) {
+			error = true;
+			filtriraniTreninzi = treninzi;
+		}
+		
+		const minCena = parseInt(podeljenString[0]);
+		const maxCena = parseInt(podeljenString[1]);
+		
+		if (isNaN(minCena) || isNaN(maxCena)) {
+			error = true;
+			filtriraniTreninzi = treninzi;
+		}
+		
+		if (!error) {
+			for (let t of treninzi) {
+				if (t.cena > minCena && t.cena < maxCena) {
+					filtriraniTreninzi.push(t);
+				}
+			}
+		}
+	}
+	
+	const datumOd = $("#datum-od").val();
+	if (datumOd) {
+		let treninziDatumOd = [];
+		for (let t of filtriraniTreninzi) {
+				if (t.datumIVremeOdrzavanja > datumOd) {
+					treninziDatumOd.push(t);
+				}
+			}
+	
+		
+		filtriraniTreninzi = treninziDatumOd;
+	}
+	
+	const datumDo = $("#datum-do").val();
+	if (datumDo) {
+		let treninziDatumDo = [];
+		for (let t of filtriraniTreninzi) {
+				if (t.datumIVremeOdrzavanja < datumDo) {
+					treninziDatumDo.push(t);
+				}
+			}
+	
+		
+		filtriraniTreninzi = treninziDatumOd;
+	}
+	
+	const rastuceSortiranje = $("#rastuce-sortiranje").is(":checked");
+	const sortiranjePo = $("#tip-sortiranja").val();
+	if (sortiranjePo === "objekat") {
+		if (rastuceSortiranje) {
+			filtriraniTreninzi.sort(function(a, b) {
+				const nameA = a.objekatId.toUpperCase();
+				const nameB = b.objekatId.toUpperCase();
+				if (nameA < nameB) {
+				  return -1;
+				}
+				if (nameA > nameB) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		} else {
+			filtriraniTreninzi.sort(function(a, b) {
+				const nameA = a.objekatId.toUpperCase();
+				const nameB = b.objekatId.toUpperCase();
+				if (nameA < nameB) {
+				  return 1;
+				}
+				if (nameA > nameB) {
+				  return -1;
+				}
+				
+				return 0;
+			});
+		}
+	} else if (sortiranjePo === "cena") {
+		if (rastuceSortiranje) {
+			filtriraniTreninzi.sort(function(a, b) {
+				return a.cena > b.cena ? 1 : 0;
+			});
+		} else {
+			filtriraniTreninzi.sort(function(a, b) {
+				return a.cena < b.cena ? 1 : 0;
+			});
+		}
+	} else if (sortiranjePo === "datum") {
+		if (rastuceSortiranje) {
+			filtriraniTreninzi.sort(function(a, b) {
+				const nameA = a.datumIVremeOdrzavanja;
+				const nameB = b.datumIVremeOdrzavanja;
+				if (nameA < nameB) {
+				  return -1;
+				}
+				if (nameA > nameB) {
+				  return 1;
+				}
+				
+				return 0;
+			});
+		} else {
+			filtriraniTreninzi.sort(function(a, b) {
+				const nameA = a.datumIVremeOdrzavanja;
+				const nameB = b.datumIVremeOdrzavanja;
+				if (nameA < nameB) {
+				  return 1;
+				}
+				if (nameA > nameB) {
+				  return -1;
+				}
+				
+				return 0;
+			});
+		}
+	} else if (sortiranjePo === "broj-bodova") {
+		if (rastuceSortiranje) {
+			filtriraniKorisnici.sort(function(a, b) {
+				return a.numberOfPoints > b.numberOfPoints ? 1 : -1;
+			});
+		} else {
+			filtriraniKorisnici.sort(function(a, b) {
+				return a.numberOfPoints < b.numberOfPoints ? 1 : -1;
+			});
+		}
+	}
+	
+	let tableBody = $("#table-body");
+	tableBody.html("");
+	for (let t of filtriraniTreninzi) {
+		if (tipTreninga.toLowerCase() === 'grupni')
+	    	tableBody.append(kreirajRedZaGrupniTrening(t));
+    	else
+    		tableBody.append(kreirajRedZaPersonalniTrening(t));
+	}
 }

@@ -16,9 +16,11 @@ import javax.servlet.MultipartConfigElement;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import beans.SportskiObjekat;
 import beans.Trening;
 import beans.User;
 import dto.TreningDTO;
+import services.SportskiObjektiService;
 import services.TreningService;
 import services.UserService;
 import spark.Session;
@@ -29,6 +31,7 @@ public class TreningController {
 	private static Gson g = new GsonBuilder().setPrettyPrinting().create();
 	private static TreningService treningService = new TreningService();
 	private static UserService userService = new UserService();
+	private static SportskiObjektiService sportskiObjekatService = new SportskiObjektiService();
 	
 	public static void endpoints() {
 		
@@ -66,6 +69,7 @@ public class TreningController {
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				treningDTO.setOtkazan(trening.isOtkazan());
+				treningDTO.setCena(trening.getCena());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -108,6 +112,7 @@ public class TreningController {
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				treningDTO.setOtkazan(trening.isOtkazan());
+				treningDTO.setCena(trening.getCena());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -147,6 +152,7 @@ public class TreningController {
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				treningDTO.setOtkazan(trening.isOtkazan());
+				treningDTO.setCena(trening.getCena());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -187,6 +193,7 @@ public class TreningController {
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				treningDTO.setOtkazan(trening.isOtkazan());
+				treningDTO.setCena(trening.getCena());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -196,6 +203,11 @@ public class TreningController {
 				User kupac = userService.getPoUsername(trening.getKupacId());
 				if (kupac != null) {
 					treningDTO.setKupac(kupac.getName() + " " + kupac.getLastName());					
+				}
+				
+				SportskiObjekat sportskiObjekat = sportskiObjekatService.getSportskiObjekatPoId(trening.getObjekatId());
+				if (sportskiObjekat != null) {
+					treningDTO.setObjekatId(sportskiObjekat.getNaziv());
 				}
 				
 				dtos.add(treningDTO);
@@ -233,6 +245,7 @@ public class TreningController {
 				treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 				treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 				treningDTO.setOtkazan(trening.isOtkazan());
+				treningDTO.setCena(trening.getCena());
 				
 				User trener = userService.getPoUsername(trening.getTrenerId());
 				if (trener != null) {
@@ -242,6 +255,11 @@ public class TreningController {
 				User kupac = userService.getPoUsername(trening.getKupacId());
 				if (kupac != null) {
 					treningDTO.setKupac(kupac.getName() + " " + kupac.getLastName());					
+				}
+				
+				SportskiObjekat sportskiObjekat = sportskiObjekatService.getSportskiObjekatPoId(trening.getObjekatId());
+				if (sportskiObjekat != null) {
+					treningDTO.setObjekatId(sportskiObjekat.getNaziv());
 				}
 				
 				dtos.add(treningDTO);
@@ -280,6 +298,7 @@ public class TreningController {
 					treningDTO.setTrajanje(trening.getTrajanjeUMinutima());
 					treningDTO.setDatumIVremeOdrzavanja(trening.getDatumIVremeOdrzavanja());
 					treningDTO.setOtkazan(trening.isOtkazan());
+					treningDTO.setCena(trening.getCena());
 					
 					User trener = userService.getPoUsername(trening.getTrenerId());
 					if (trener != null) {
@@ -313,6 +332,7 @@ public class TreningController {
 			String objekatId = req.queryParams("objekatId");
 			String datumIVremeOdrzavanja = req.queryParams("datumIVremeOdrzavanja");
 			String kupacId = req.queryParams("kupacId");
+			int cena = Integer.parseInt(req.queryParams("cena"));
 			
 			if (naziv.isEmpty() || tip.isEmpty() || opis.isEmpty() ||
 					trajanje.isEmpty() || trenerId.isEmpty() || objekatId.isEmpty() && datumIVremeOdrzavanja.isEmpty()) {
@@ -369,6 +389,7 @@ public class TreningController {
 			noviTrening.setSlika(slikaURL);
 			noviTrening.setDatumIVremeOdrzavanja(datumIVremeOdrzavanja);
 			noviTrening.setKupacId(kupacId);
+			noviTrening.setCena(cena);
 			
 			Trening kreiranTrening = treningService.dodajTrening(noviTrening);
 			
@@ -410,6 +431,7 @@ public class TreningController {
 			String objekatId = req.queryParams("objekatId");
 			String datumIVremeOdrzavanja = req.queryParams("datumIVremeOdrzavanja");
 			String kupacId = req.queryParams("kupacId");
+			int cena = Integer.parseInt(req.queryParams("cena"));
 			
 			
 			if (naziv.isEmpty() || tip.isEmpty() || opis.isEmpty() ||
@@ -472,6 +494,7 @@ public class TreningController {
 			trening.setObjekatId(objekatId);
 			trening.setDatumIVremeOdrzavanja(datumIVremeOdrzavanja);
 			trening.setKupacId(kupacId);
+			trening.setCena(cena);
 			
 			if (!slikaURL.isEmpty()) {
 				trening.setSlika(slikaURL);

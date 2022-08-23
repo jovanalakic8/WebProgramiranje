@@ -54,6 +54,46 @@
 	
     <main>
     	<h1 class="text-center mt-3 mb-3" >Personalni treninzi</h1>
+    	
+    	<div class="input-group w-75 ml-auto mr-auto mb-3" >
+		   <input id="pretraga" type="text" class="form-control" aria-label="Pretraga" onkeyup="pretragaTreninga('personalni')">
+		   <div class="input-group-append">
+		      <select id="kriterijum" onchange="pretragaTreninga('personalni')">
+		      	<option value="objekat">Sportski objekat</option>
+		      	<option value="cena">Cena</option>
+		      </select>
+		   </div>
+		 </div>
+		 
+		 <div class="d-flex">
+		 	
+		 	<div class="filteri" style="flex:1;">
+		 		<h3 class="ml-3 mt-4">Filteri</h3>
+		 
+				 <div class="my-5">
+				 	<label>Datum od</label><input type="date" id="datum-od" >
+				 	<label>Datum do</label><input type="date" id="datum-do" >
+				 </div>
+		 	</div>
+		 	
+		 	<div class="sortirnaje" style="flex:1;">
+		 		<h3 class="ml-3 mt-4">Sortiranje</h3>
+		 		
+		 		<div class="mb-2">
+			 		<select id="tip-sortiranja" onchange="pretragaTreninga('personalni')">
+			 			<option value=""></option>
+			 			<option value="objekat">Sportski objekat</option>
+			 			<option value="cena">Cena</option>
+			 			<option value="datum">Datum prijave</option>
+			 		</select>
+		 		</div>
+		 		
+		 		<div>
+		 			<label>Rastuce <input id="rastuce-sortiranje" type="checkbox" onclick="pretragaTreninga('personalni')" checked /></label>
+		 		</div>
+		 	</div>
+		 	
+		 </div>
 		
 		<table id="treninzi-tabela" class="w-75 ml-auto mr-auto">
     		<thead>
@@ -64,8 +104,10 @@
                     <th>Trener</th>
                     <th>Opis</th>
                     <th>Slika</th>
+                    <th>Cena</th>
                     <th>Datum i vreme</th>
                     <th>Kupac</th>
+                    <th>Sportski objekat</th>
                     <th></th>
                 </tr>
     		</thead>
