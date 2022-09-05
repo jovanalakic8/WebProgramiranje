@@ -79,7 +79,7 @@ public class ClanarinaController {
 			dto.setBrojTermina(clanarina.getBrojTermina());
 			dto.setNaziv(clanarina.getNaziv());
 			dto.setTip(clanarina.getTip());
-			dto.setVaziDo(LocalDateTime.now().plusDays(clanarina.getBrojDanaVazenja()).toLocalDate().toString());
+			dto.setVaziDo(LocalDateTime.now().plusDays(clanarina.getBrojDanaVazenja()).toString());
 			
 			if (user.getType().equals(UserType.ZLATNI)) {
 				dto.setCena((int)Math.floor(clanarina.getCena() * 0.7));				

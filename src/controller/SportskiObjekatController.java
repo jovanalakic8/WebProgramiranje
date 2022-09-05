@@ -1,6 +1,7 @@
 package controller;
 
 import static spark.Spark.get;
+import static spark.Spark.delete;
 import static spark.Spark.post;
 
 import java.io.File;
@@ -151,6 +152,16 @@ public class SportskiObjekatController {
 				return "Unete vrednosti nisu ispravne";
 			}
 		
+		});
+		
+		delete("/sportski-objekti/:id", (req, res) -> {
+			res.type("application/json");
+			res.status(200);
+			
+			String objekatId = req.params("id");
+			service.obrisiObjekat(objekatId);
+			String json = g.toJson(null);
+			return json;
 		});
 		
 	}

@@ -44,6 +44,28 @@
       "role": "ADMIN",
       "numberOfPoints": 0,
       "type": "BRONZANI"
+    },
+    {
+      "userName": "u",
+      "password": "u",
+      "name": "u",
+      "lastName": "uee",
+      "sex": "MUSKI",
+      "birthDate": "22-02-2002",
+      "role": "KUPAC",
+      "numberOfPoints": 0,
+      "type": "BRONZANI"
+    },
+    {
+      "userName": "mateja@gmail.com",
+      "password": "123",
+      "name": "Mateja",
+      "lastName": "Andric",
+      "sex": "MUSKI",
+      "birthDate": "11-12-2002",
+      "role": "KUPAC",
+      "numberOfPoints": 0,
+      "type": "BRONZANI"
     }
   ],
   "sportskiObjekti": [
@@ -60,7 +82,8 @@
       },
       "logo": "/images/avatar.png",
       "prosecnaOcena": 4.2,
-      "radnoVreme": "11-14"
+      "radnoVreme": "11-14",
+      "brisanjeLogicko": true
     },
     {
       "id": "54645",
@@ -75,7 +98,8 @@
       },
       "logo": "/images/avatar.png",
       "prosecnaOcena": 1.3,
-      "radnoVreme": "09-12"
+      "radnoVreme": "09-12",
+      "brisanjeLogicko": false
     }
   ],
   "treninzi": [
@@ -88,10 +112,11 @@
       "opis": "asde",
       "slika": "/images/1659873145704.jpg",
       "objekatId": "123-123",
-      "datumIVremeOdrzavanja": "2022-08-25T06:34",
+      "datumIVremeOdrzavanja": "2022-08-26T06:34",
       "kupacId": "a",
-      "otkazan": false,
-      "cena": 3
+      "otkazan": true,
+      "cena": 3,
+      "brisanjeLogicko": false
     },
     {
       "id": "1659876552304",
@@ -104,7 +129,8 @@
       "objekatId": "123-123",
       "datumIVremeOdrzavanja": "",
       "otkazan": false,
-      "cena": 0
+      "cena": 0,
+      "brisanjeLogicko": true
     }
   ],
   "ponudaClanarina": [
@@ -122,7 +148,7 @@
       "id": "1659997301957",
       "tip": "MESECNA",
       "status": "AKTIVNA",
-      "vaziDo": "2022-08-19",
+      "vaziDo": "2022-11-09T00:21:41.957565800",
       "datumPlacanja": "2022-08-09T00:21:41.957565800",
       "brojPreostalihTermina": 1,
       "ukupanBrojTermina": 1,
@@ -137,6 +163,27 @@
         "role": "KUPAC",
         "numberOfPoints": 0
       }
+    },
+    {
+      "id": "1662372129741",
+      "tip": "MESECNA",
+      "status": "AKTIVNA",
+      "vaziDo": "2022-11-09T00:21:41.957565800",
+      "datumPlacanja": "2022-09-05T12:02:09.741476400",
+      "brojPreostalihTermina": 0,
+      "ukupanBrojTermina": 1,
+      "cena": 2000.0,
+      "kupac": {
+        "userName": "mateja@gmail.com",
+        "password": "123",
+        "name": "Mateja",
+        "lastName": "Andric",
+        "sex": "MUSKI",
+        "birthDate": "11-12-2002",
+        "role": "KUPAC",
+        "numberOfPoints": 0,
+        "type": "BRONZANI"
+      }
     }
   ],
   "istorijaTreninga": [
@@ -145,6 +192,12 @@
       "datumIVremePrijave": "2022-08-18T07:47:27.522557200",
       "kupacId": "a",
       "treningId": "1659876552303"
+    },
+    {
+      "id": "1662372901149",
+      "datumIVremePrijave": "2022-09-05T12:15:01.149763100",
+      "kupacId": "mateja@gmail.com",
+      "treningId": "1659876552304"
     }
   ]
 }

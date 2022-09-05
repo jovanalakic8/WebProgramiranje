@@ -304,3 +304,21 @@ function ucitajSportskeObjekteUDropdown() {
     });
 }
 
+function obrisiObjekat() {
+	let urlVars = getUrlVars();
+	if (!urlVars.objekatId) {
+		alert("Id objekta nije prolsedjen");
+		window.location.reload();
+	}
+	
+	$.ajax({
+        url: "sportski-objekti/" + urlVars.objekatId,
+        type: "DELETE",
+        contentType: "application/json",
+        dataType: "json",
+        complete: function(data) {
+            alert("Uspesno obrisan");
+            window.location.href = "/";
+        }
+    });
+}

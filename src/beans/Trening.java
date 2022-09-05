@@ -16,6 +16,7 @@ public class Trening {
 	private String kupacId;
 	private boolean otkazan;
 	private int cena;
+	private boolean brisanjeLogicko;
 	
 	public String getId() {
 		return id;
@@ -88,6 +89,12 @@ public class Trening {
 	}
 	public void setCena(int cena) {
 		this.cena = cena;
+	}
+	public boolean isBrisanjeLogicko() {
+		return brisanjeLogicko;
+	}
+	public void setBrisanjeLogicko(boolean brisanjeLogicko) {
+		this.brisanjeLogicko = brisanjeLogicko;
 	}
 	
 	

@@ -1,6 +1,7 @@
 package controller;
 
 import static spark.Spark.post;
+import static spark.Spark.delete;
 import static spark.Spark.get;
 import static spark.Spark.put;
 
@@ -332,7 +333,12 @@ public class TreningController {
 			String objekatId = req.queryParams("objekatId");
 			String datumIVremeOdrzavanja = req.queryParams("datumIVremeOdrzavanja");
 			String kupacId = req.queryParams("kupacId");
-			int cena = Integer.parseInt(req.queryParams("cena"));
+			int cena;
+			if (req.queryParams("cena").isEmpty()) {
+				cena = 0;
+			} else {
+				cena = Integer.parseInt(req.queryParams("cena"));				
+			}
 			
 			if (naziv.isEmpty() || tip.isEmpty() || opis.isEmpty() ||
 					trajanje.isEmpty() || trenerId.isEmpty() || objekatId.isEmpty() && datumIVremeOdrzavanja.isEmpty()) {
@@ -504,6 +510,17 @@ public class TreningController {
 			
 			res.status(200);
 			return g.toJson(trening);
+
+		});
+		
+		delete("/treninzi/:id", (req, res) -> {
+			res.type("application/json");
+			
+			String treningId = req.params("id");
+			treningService.obrisiTrening(treningId);
+			
+			res.status(200);
+			return g.toJson(null);
 
 		});
 	}

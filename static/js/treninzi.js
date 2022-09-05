@@ -147,8 +147,24 @@ function kreirajRedZaTrening(t) {
 		row += "<td>/</td>";
 	}
 	row += "<td><a href='/izmena_treninga.html?treningId=" + t.id + "' class='btn btn-primary'>" + "Izmena" + "</a></td>";
+	row += "<td><button data-treningId=" + t.id + " class='btn btn-danger' onclick='brisanjeTreninga(this)'>Brisanje</button></td>";
 	row += "</tr>";
 	return row;
+}
+
+function brisanjeTreninga(dugme) {
+	const treningId = dugme.getAttribute("data-treningId");
+	
+	$.ajax({
+	    url: "treninzi/" + treningId,
+	    type: "DELETE",
+	    contentType: "application/json",
+	    dataType: "json",
+	    complete: function(data) {
+			alert("Brisanje uspesno");
+			window.location.reload();
+	    }
+	});
 }
 
 var treninzi = [];
@@ -312,13 +328,12 @@ function otkaziTrening(treningId) {
 	    type: "PUT",
 	    contentType: "application/json",
 	    dataType: "json",
-	    error: function(error) {
+	    complete: function(data) {
 			if (data.status === 403) {
 				alert("Niste ulogovani");
 				return;	
 			}
-		},
-	    complete: function(data) {
+			
 			alert("Trening je uspesno otkazan");
 			window.location.reload();
 	    }
@@ -398,7 +413,7 @@ function pretragaTreninga(tipTreninga) {
 		
 		if (!error) {
 			for (let t of treninzi) {
-				if (t.cena > minCena && t.cena < maxCena) {
+				if (t.cena >= minCena && t.cena <= maxCena) {
 					filtriraniTreninzi.push(t);
 				}
 			}

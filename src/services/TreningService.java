@@ -10,7 +10,13 @@ import utils.TreningTipEnum;
 public class TreningService {
 	
 	public List<Trening> getSviTreninzi() {
-		return DataManager.data.getTreninzi();
+		List<Trening> neizbrisaniTreninzi = new ArrayList<Trening>();
+		for (Trening trening : DataManager.data.getTreninzi()) {
+			if (!trening.isBrisanjeLogicko()) {
+				neizbrisaniTreninzi.add(trening);
+			}
+		}
+		return neizbrisaniTreninzi;
 	}
 	
 	public Trening dodajTrening(Trening trening) {
@@ -82,6 +88,17 @@ public class TreningService {
 		for (Trening tr : getSviTreninzi()) {
 			if (tr.getId().equals(treningId)) {
 				tr.setOtkazan(true);
+				break;
+			}
+		}
+		
+		DataManager.saveData();
+	}
+	
+	public void obrisiTrening(String treningId) {
+		for (Trening tr : getSviTreninzi()) {
+			if (tr.getId().equals(treningId)) {
+				tr.setBrisanjeLogicko(true);
 				break;
 			}
 		}

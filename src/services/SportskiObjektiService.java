@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import beans.SportskiObjekat;
@@ -8,7 +9,13 @@ import data.DataManager;
 public class SportskiObjektiService {
 	
 	public List<SportskiObjekat> getSviSportskiObjekti() {
-		return DataManager.data.getSportskiObjekti();
+		List<SportskiObjekat> neizbrisaniObjekti = new ArrayList<SportskiObjekat>();
+		for (SportskiObjekat sportskiObjekat: DataManager.data.getSportskiObjekti()) {
+			if (!sportskiObjekat.isBrisanjeLogicko()) {
+				neizbrisaniObjekti.add(sportskiObjekat);
+			}
+		}
+		return neizbrisaniObjekti;
 	}
 	
 	public SportskiObjekat getSportskiObjekatPoId(String id) {
@@ -25,5 +32,15 @@ public class SportskiObjektiService {
 		DataManager.data.getSportskiObjekti().add(sportskiObjekat);
 		DataManager.saveData();
 		return sportskiObjekat;
+	}
+	
+	public void obrisiObjekat(String sportskiObjekatId) {
+		for (SportskiObjekat sportskiObjekat : getSviSportskiObjekti()) {
+			if (sportskiObjekat.getId().equals(sportskiObjekatId)) {
+				sportskiObjekat.setBrisanjeLogicko(true);
+			}
+		}
+		
+		DataManager.saveData();
 	}
 }

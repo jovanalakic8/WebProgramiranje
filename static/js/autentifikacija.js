@@ -112,6 +112,22 @@ function proveraLoginaIUlogeNaPocetnojStranici() {
 	});
 }
 
+function proveraUlogeKodPregledaObjekta() {
+	$.ajax({
+		url: "isLoggedIn",
+		type: "GET",
+		complete: function(data) {
+			let dataJSON = data.responseJSON;
+			
+			if (dataJSON.loggedIn) {
+				if (dataJSON.uloga.toLowerCase() === "admin") {
+					$("body").append("<button class='btn btn-danger' onclick='obrisiObjekat()'>Obrisi</button>");
+				}
+			}
+		}
+	});
+}
+
 function preusmeriUlogovanogKorisnika() {
 	$.ajax({
 		url: "isLoggedIn",

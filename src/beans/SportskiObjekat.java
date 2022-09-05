@@ -13,6 +13,7 @@ public class SportskiObjekat {
 	private String logo;
 	private float prosecnaOcena;
 	private String radnoVreme;
+	private boolean brisanjeLogicko;
 	
 	public String getId() {
 		return id;
@@ -69,6 +70,15 @@ public class SportskiObjekat {
 		this.radnoVreme = radnoVreme;
 	}
 	
+	public boolean isBrisanjeLogicko() {
+		return brisanjeLogicko;
+	}
+	public void setBrisanjeLogicko(boolean brisanjeLogicko) {
+		this.brisanjeLogicko = brisanjeLogicko;
+	}
+
+
+
 	public static Comparator<SportskiObjekat> SportskiObjekatOtvorenostComparator 
 		    = new Comparator<SportskiObjekat>() {
 		
