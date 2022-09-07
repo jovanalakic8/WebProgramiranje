@@ -54,12 +54,6 @@ public class UserController {
 		
 		post("/registracija", (req, res) -> {
 			res.type("application/json");
-			Session ss = req.session(true);
-			User trenutniKorisnik = ss.attribute("user");
-			if (trenutniKorisnik != null) {
-				res.status(400);
-				return "Vec ste ulogovani, ne mozete izvrsiti registraciju";
-			}
 
 			try {
 				RegistracijaDTO k = g.fromJson(req.body(), RegistracijaDTO.class);

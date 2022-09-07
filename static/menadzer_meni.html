@@ -24,7 +24,7 @@
 		function preusmeriNaStranicuZaDodavanjeTreninga() {
 			let url = '/novi_trening.html?';
 			url += "objectId=" + $("#objekatId").val();
-			url += "objectName=" + $("#naziv").val();
+			url += "&objectName=" + $("#naziv").val();
 			window.location.href = url;
 		}
 	</script>
