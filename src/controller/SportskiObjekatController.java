@@ -22,6 +22,7 @@ import beans.SportskiObjekat;
 import beans.User;
 import dto.NoviObjekatDTO;
 import services.SportskiObjektiService;
+import services.UserService;
 import spark.Session;
 import spark.utils.IOUtils;
 
@@ -30,6 +31,7 @@ public class SportskiObjekatController {
 	
 	private static Gson g = new GsonBuilder().setPrettyPrinting().create();
 	private static SportskiObjektiService service = new SportskiObjektiService();
+	private static UserService userService = new UserService();
 	
 	public static void endpoints() {
 		
@@ -160,6 +162,7 @@ public class SportskiObjekatController {
 			
 			String objekatId = req.params("id");
 			service.obrisiObjekat(objekatId);
+			userService.obrisiSportskiObjekatZaMenadzera(objekatId);
 			String json = g.toJson(null);
 			return json;
 		});

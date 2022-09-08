@@ -144,4 +144,14 @@ public class UserService {
 		
 		DataManager.saveData();
 	}
+	
+	public void obrisiSportskiObjekatZaMenadzera(String objekatId) {
+		for (User u : DataManager.data.getKorisnici()) {
+			if (u.getManagedSportObjectId() != null &&   u.getManagedSportObjectId().equals(objekatId)) {
+				u.setManagedSportObject(null);
+			}
+		}
+		
+		DataManager.saveData();
+	}
 }
