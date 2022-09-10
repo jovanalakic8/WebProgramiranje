@@ -108,6 +108,13 @@ public class SportskiObjekatController {
 				return "Sva polja su obavezna";
 			}
 			
+			Session ss = req.session(true);
+			User trenutniKorisnik = ss.attribute("user");
+			if (trenutniKorisnik == null) {
+				res.status(403);
+				return "Niste ulogovani";
+			}
+			
 			String logoName = "";
 		    try (InputStream is = req.raw().getPart("logo").getInputStream()) {
 		    	logoName = "/images/" + String.valueOf(System.currentTimeMillis()) + ".jpg";
@@ -129,7 +136,8 @@ public class SportskiObjekatController {
 			
 			try {
 				SportskiObjekat sportskiObjekat = new SportskiObjekat();
-				sportskiObjekat.setId(String.valueOf(System.currentTimeMillis()));
+				String id = String.valueOf(System.currentTimeMillis());
+				sportskiObjekat.setId(id);
 				sportskiObjekat.setNaziv(naziv);
 				sportskiObjekat.setTipObjekta(tip);
 				sportskiObjekat.setStatus("Ne radi");
@@ -146,6 +154,7 @@ public class SportskiObjekatController {
 				sportskiObjekat.setLogo(logoName);
 				
 				service.dodajSportskiObjekat(sportskiObjekat);
+				userService.azurirajMenadzera(trenutniKorisnik.getUserName(), id);
 				
 				res.status(200);
 				return g.toJson("");

@@ -12,6 +12,7 @@ import utils.UserType;
 public class UserService {
 	
 	public List<UserWithoutCredentialsDTO> sviKorisnici() {
+		DataManager.readData();
 		List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
 		for (User user : DataManager.data.getKorisnici()) {
 			dtos.add(new UserWithoutCredentialsDTO(user.getName(), user.getLastName(), 
@@ -22,6 +23,7 @@ public class UserService {
 	}
 	
 	public List<UserWithoutCredentialsDTO> menadzeriBezObjekta() {
+		DataManager.readData();
 		List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
 		for (User user : DataManager.data.getKorisnici()) {
 			if (user.getRole().toLowerCase().equals("menadzer") && user.getManagedSportObjectId() == null) {
@@ -34,6 +36,7 @@ public class UserService {
 	}
 	
 	public User login(String korisnickoIme, String lozinka) throws Exception {
+		DataManager.readData();
 		List<User> korisnici = (List<User>) DataManager.data.getKorisnici();
 		for (User korisnik : korisnici) {
 			if (korisnik.getUserName().contains(korisnickoIme)) {
@@ -46,6 +49,7 @@ public class UserService {
     }
 	
 	public RegistracijaDTO registracijaKorisnika(RegistracijaDTO input) throws Exception {
+		DataManager.readData();
 		List<User> korisnici = (List<User>) DataManager.data.getKorisnici();
 	    String korisnickoIme = input.getKorisnickoIme();
 	    for (User korisnik : korisnici) {
@@ -64,6 +68,7 @@ public class UserService {
     }
 	
 	public RegistracijaDTO azuriranjeKorisnika(String korisnickoIme, RegistracijaDTO input) {
+		DataManager.readData();
 		List<User> korisnici = (List<User>) DataManager.data.getKorisnici();
 	    for (User korisnik : korisnici) {
 	    	if (korisnik.getUserName().equals(korisnickoIme)) {
@@ -92,6 +97,7 @@ public class UserService {
 	}
 	
 	public List<UserWithoutCredentialsDTO> sviKupci() {
+		DataManager.readData();
 		List<UserWithoutCredentialsDTO> dtos = new ArrayList<UserWithoutCredentialsDTO>();
 		for (User user : DataManager.data.getKorisnici()) {
 			if (user.getRole().toLowerCase().equals("kupac")) {
@@ -104,6 +110,7 @@ public class UserService {
 	}
 	
 	public String getObjekatZaMenadzera(String menadzerUserName) {
+		DataManager.readData();
 		for (User user : DataManager.data.getKorisnici()) {
 			if (user.getUserName().equals(menadzerUserName)) {
 				return user.getManagedSportObjectId();			
@@ -114,6 +121,7 @@ public class UserService {
 	}
 	
 	public User getPoUsername(String username) {
+		DataManager.readData();
 		for (User user : DataManager.data.getKorisnici()) {
 			if (user.getUserName().equals(username)) {
 				return user;			
@@ -124,6 +132,7 @@ public class UserService {
 	}
 
 	public void azurirajTipKorisnika(User user, int brojBodova) {
+		DataManager.readData();
 		for (User u : DataManager.data.getKorisnici()) {
 			if (u.getUserName().equals(user.getUserName())) {
 				int noviBrojBodova = u.getNumberOfPoints() + brojBodova;
@@ -145,7 +154,19 @@ public class UserService {
 		DataManager.saveData();
 	}
 	
+	public void azurirajMenadzera(String username, String noviObjekat) {
+		DataManager.readData();
+		for (User u : DataManager.data.getKorisnici()) {
+			if (u.getUserName().equals(username)) {
+				u.setManagedSportObject(noviObjekat);
+			}
+		}
+		
+		DataManager.saveData();
+	}
+	
 	public void obrisiSportskiObjekatZaMenadzera(String objekatId) {
+		DataManager.readData();
 		for (User u : DataManager.data.getKorisnici()) {
 			if (u.getManagedSportObjectId() != null &&   u.getManagedSportObjectId().equals(objekatId)) {
 				u.setManagedSportObject(null);

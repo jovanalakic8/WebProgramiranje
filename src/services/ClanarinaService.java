@@ -10,6 +10,7 @@ import utils.ClanarinaStatus;
 public class ClanarinaService {
 	
 	public List<ClanarinaPonuda> getPonudaClanarina() {
+		DataManager.readData();
 		return DataManager.data.getPonudaClanarina();
 	}
 

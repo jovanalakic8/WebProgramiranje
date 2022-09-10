@@ -11,6 +11,7 @@ import data.DataManager;
 public class TreningIstorijaService {
 	
 	public void sacuvajNovi(TreningIstorija treningIstorija) {
+		DataManager.readData();
 		DataManager.data.getIstorijaTreninga().add(treningIstorija);
 		DataManager.saveData();
 	}
@@ -26,6 +27,7 @@ public class TreningIstorijaService {
 	}
 	
 	public List<TreningIstorija> pronadjiZapiseZaKupcaUPoslednjihMesecDana(String kupacId) {
+		DataManager.readData();
 		List<TreningIstorija> list = new ArrayList<TreningIstorija>();
 		for (TreningIstorija tr : DataManager.data.getIstorijaTreninga()) {
 			if (tr.getKupacId().equals(kupacId) &&
@@ -38,6 +40,7 @@ public class TreningIstorijaService {
 	}
 	
 	public List<TreningIstorija> pronadjiZapiseProsledjeneTreninge(List<String> treninziID) {
+		DataManager.readData();
 		List<TreningIstorija> istorija = new ArrayList<TreningIstorija>();
 		
 		for (TreningIstorija ti : DataManager.data.getIstorijaTreninga()) {

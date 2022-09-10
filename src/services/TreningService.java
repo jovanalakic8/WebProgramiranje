@@ -10,6 +10,7 @@ import utils.TreningTipEnum;
 public class TreningService {
 	
 	public List<Trening> getSviTreninzi() {
+		DataManager.readData();
 		List<Trening> neizbrisaniTreninzi = new ArrayList<Trening>();
 		for (Trening trening : DataManager.data.getTreninzi()) {
 			if (!trening.isBrisanjeLogicko()) {

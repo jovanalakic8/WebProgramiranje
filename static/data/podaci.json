@@ -20,7 +20,8 @@
       "birthDate": "22-02-2002",
       "role": "MENADZER",
       "numberOfPoints": 3,
-      "type": "BRONZANI"
+      "type": "BRONZANI",
+      "managedSportObjectId": "54645"
     },
     {
       "userName": "a",
@@ -65,6 +66,29 @@
       "role": "KUPAC",
       "numberOfPoints": 0,
       "type": "BRONZANI"
+    },
+    {
+      "userName": "jovana.lakic8@gmail.com",
+      "password": "123",
+      "name": "Jovana",
+      "lastName": "Lakic",
+      "sex": "ZENSKI",
+      "birthDate": "25-07-1997",
+      "role": "KUPAC",
+      "numberOfPoints": 0,
+      "type": "BRONZANI"
+    },
+    {
+      "userName": "petar@gmail.com",
+      "password": "petar",
+      "name": "Petar",
+      "lastName": "Petrovic",
+      "sex": "MUSKI",
+      "birthDate": "02-02-1982",
+      "role": "MENADZER",
+      "numberOfPoints": 0,
+      "type": "BRONZANI",
+      "managedSportObjectId": "1662735463715"
     }
   ],
   "sportskiObjekti": [
@@ -99,6 +123,22 @@
       "prosecnaOcena": 1.3,
       "radnoVreme": "09-12",
       "brisanjeLogicko": false
+    },
+    {
+      "id": "1662735463715",
+      "naziv": "sc",
+      "tipObjekta": "SPORTSKI_CENTAR",
+      "sadrzaj": "",
+      "status": "Ne radi",
+      "lokacija": {
+        "geografskaSirina": 23.234,
+        "geografskaDuzina": 24.042,
+        "adresa": "Studentska 15, Beograd, 11000"
+      },
+      "logo": "/images/1662735463713.jpg",
+      "prosecnaOcena": 0.0,
+      "radnoVreme": "",
+      "brisanjeLogicko": false
     }
   ],
   "treninzi": [
@@ -130,6 +170,34 @@
       "otkazan": false,
       "cena": 0,
       "brisanjeLogicko": true
+    },
+    {
+      "id": "1662735765137",
+      "naziv": "bbbb",
+      "tip": "GRUPNI",
+      "trajanjeUMinutima": 40,
+      "trenerId": "q",
+      "opis": "b",
+      "slika": "/images/1662735765121.jpg",
+      "objekatId": "1662735463715",
+      "datumIVremeOdrzavanja": "2022-09-22T21:02",
+      "otkazan": false,
+      "cena": 4000,
+      "brisanjeLogicko": false
+    },
+    {
+      "id": "1662736686585",
+      "naziv": "l",
+      "tip": "GRUPNI",
+      "trajanjeUMinutima": 60,
+      "trenerId": "q",
+      "opis": "l",
+      "slika": "/images/1662736686496.jpg",
+      "objekatId": "1662735463715",
+      "datumIVremeOdrzavanja": "2022-09-29T21:16",
+      "otkazan": false,
+      "cena": 2,
+      "brisanjeLogicko": false
     }
   ],
   "ponudaClanarina": [

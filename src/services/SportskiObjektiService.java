@@ -9,6 +9,7 @@ import data.DataManager;
 public class SportskiObjektiService {
 	
 	public List<SportskiObjekat> getSviSportskiObjekti() {
+		DataManager.readData();
 		List<SportskiObjekat> neizbrisaniObjekti = new ArrayList<SportskiObjekat>();
 		for (SportskiObjekat sportskiObjekat: DataManager.data.getSportskiObjekti()) {
 			if (!sportskiObjekat.isBrisanjeLogicko()) {
